@@ -27,10 +27,10 @@ class ApodViewModel @Inject constructor(
         _imageOfDayPath.value = ViewState.Loading
         try {
             viewModelScope.launch(dispatchers.io) {
-                val pathToImage =
+                val imageUrl =
                     nasaRepository.getImageOfDay(date = (day ?: Date()).getNasaFormatDate())
-                if (!pathToImage.isNullOrEmpty()) {
-                    _imageOfDayPath.value = ViewState.Successful(pathToImage)
+                if (!imageUrl.isNullOrEmpty()) {
+                    _imageOfDayPath.value = ViewState.Successful(imageUrl)
                 } else {
                     _imageOfDayPath.value =
                         ViewState.LoadError(LoadException(nasaRepository.getRepoName()))

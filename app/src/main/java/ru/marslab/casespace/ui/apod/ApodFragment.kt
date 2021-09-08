@@ -4,23 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.coroutineScope
+import androidx.lifecycle.repeatOnLifecycle
+import coil.load
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
 import ru.marslab.casespace.ui.util.ViewState
 
-
+@AndroidEntryPoint
 class ApodFragment : Fragment() {
     private var _binding: FragmentApodBinding? = null
     private val binding: FragmentApodBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
 
-    val apodViewModel by viewModels<ApodViewModel>()
+    private val apodViewModel by viewModels<ApodViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +42,43 @@ class ApodFragment : Fragment() {
 
     private fun initObserver() {
         lifecycleScope.launch {
-            apodViewModel.imageOfDayPath.collect { result ->
-                when (result) {
-                    is ViewState.LoadError -> TODO()
-                    ViewState.Loading -> TODO()
-                    is ViewState.Successful<*> -> TODO()
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                apodViewModel.imageOfDayPath.collect { result ->
+                    when (result) {
+                        is ViewState.LoadError -> {
+                            val error = result.error
+                            Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                        ViewState.Loading -> {
+                            showLoading()
+                        }
+                        is ViewState.Successful<*> -> {
+                            val imagePath = result.data as String
+                            showMainContent()
+                            loadImage(imagePath)
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    private fun loadImage(imageUrl: String) {
+        binding.imageOfDay.load(imageUrl)
+    }
+
+    private fun showLoading() {
+        binding.run {
+            mainContent.visibility = View.GONE
+            loadingIndicator.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showMainContent() {
+        binding.run {
+            mainContent.visibility = View.VISIBLE
+            loadingIndicator.visibility = View.GONE
         }
     }
 
