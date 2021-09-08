@@ -7,14 +7,16 @@ import ru.marslab.casespace.data.retrofit.NasaApi
 import ru.marslab.casespace.domain.repository.NasaRepository
 import ru.marslab.casespace.domain.repository.Storage
 import ru.marslab.casespace.domain.util.DataLoadException
-import ru.marslab.casespace.domain.util.RepositoryLoadException
 
-private const val REPO_NAME = "NASA API Repository"
 
 class NasaRepositoryImpl(
     private val nasaApi: NasaApi,
     private val storage: Storage
 ) : NasaRepository {
+    companion object {
+        private const val REPO_NAME = "NASA API Repository"
+    }
+
     override fun getRepoName(): String = REPO_NAME
 
     @Throws(Exception::class)
