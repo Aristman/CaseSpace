@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -36,19 +36,22 @@ class ApodFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObserver()
+        initObservers()
+        initView()
+    }
+
+    private fun initView() {
         apodViewModel.getImageOfDay()
     }
 
-    private fun initObserver() {
+    private fun initObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 apodViewModel.imageOfDayPath.collect { result ->
                     when (result) {
                         is ViewState.LoadError -> {
                             val error = result.error
-                            Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT)
-                                .show()
+                            Snackbar.make(requireView(), error.message.toString(), Snackbar.LENGTH_LONG).show()
                         }
                         ViewState.Loading -> {
                             showLoading()

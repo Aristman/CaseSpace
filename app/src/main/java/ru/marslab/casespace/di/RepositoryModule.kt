@@ -5,8 +5,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.marslab.casespace.data.NasaRepositoryImpl
+import ru.marslab.casespace.data.StorageImpl
 import ru.marslab.casespace.data.retrofit.NasaApi
 import ru.marslab.casespace.domain.repository.NasaRepository
+import ru.marslab.casespace.domain.repository.Storage
 import javax.inject.Singleton
 
 @Module
@@ -15,6 +17,11 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideNasaRepository(api: NasaApi): NasaRepository =
-        NasaRepositoryImpl(api)
+    fun provideNasaRepository(api: NasaApi, storage: Storage): NasaRepository =
+        NasaRepositoryImpl(api, storage)
+
+    @Singleton
+    @Provides
+    fun provideStorage(): Storage =
+        StorageImpl()
 }

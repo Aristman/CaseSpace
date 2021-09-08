@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.marslab.casespace.AppDispatchers
 import ru.marslab.casespace.domain.repository.NasaRepository
-import ru.marslab.casespace.domain.util.LoadException
+import ru.marslab.casespace.domain.util.RepositoryLoadException
 import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.ui.util.ViewState
 import java.util.*
@@ -33,7 +33,7 @@ class ApodViewModel @Inject constructor(
                     _imageOfDayPath.value = ViewState.Successful(imageUrl)
                 } else {
                     _imageOfDayPath.value =
-                        ViewState.LoadError(LoadException(nasaRepository.getRepoName()))
+                        ViewState.LoadError(RepositoryLoadException(nasaRepository.getRepoName()))
                 }
             }
         } catch (e: Exception) {
