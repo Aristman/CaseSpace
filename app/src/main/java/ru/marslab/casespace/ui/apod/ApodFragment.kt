@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
+import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.ui.util.ViewState
 
 @AndroidEntryPoint
@@ -57,9 +58,9 @@ class ApodFragment : Fragment() {
                             showLoading()
                         }
                         is ViewState.Successful<*> -> {
-                            val imagePath = result.data as String
+                            val picture = result.data as Picture
                             showMainContent()
-                            loadImage(imagePath)
+                            loadImage(picture.url)
                         }
                     }
                 }
