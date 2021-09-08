@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -24,6 +26,8 @@ class ApodFragment : Fragment() {
     private var _binding: FragmentApodBinding? = null
     private val binding: FragmentApodBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private val apodViewModel by viewModels<ApodViewModel>()
 
@@ -41,8 +45,10 @@ class ApodFragment : Fragment() {
         initView()
     }
 
+
     private fun initView() {
         apodViewModel.getImageOfDay()
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.apodBottomSheet.root)
     }
 
     private fun initObservers() {
@@ -52,7 +58,11 @@ class ApodFragment : Fragment() {
                     when (result) {
                         is ViewState.LoadError -> {
                             val error = result.error
-                            Snackbar.make(requireView(), error.message.toString(), Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(
+                                requireView(),
+                                error.message.toString(),
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                         ViewState.Loading -> {
                             showLoading()
@@ -61,11 +71,20 @@ class ApodFragment : Fragment() {
                             val picture = result.data as Picture
                             showMainContent()
                             loadImage(picture.url)
+                            updateBottomSheet(picture)
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun updateBottomSheet(picture: Picture) {
+        binding.apodBottomSheet.run {
+            bottomSheetTitle.text = picture.title
+            bottomSheetContent.text = picture.description
+        }
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private fun loadImage(imageUrl: String) {
@@ -74,14 +93,14 @@ class ApodFragment : Fragment() {
 
     private fun showLoading() {
         binding.run {
-            mainContent.visibility = View.GONE
+            apodMainContent.visibility = View.GONE
             loadingIndicator.visibility = View.VISIBLE
         }
     }
 
     private fun showMainContent() {
         binding.run {
-            mainContent.visibility = View.VISIBLE
+            apodMainContent.visibility = View.VISIBLE
             loadingIndicator.visibility = View.GONE
         }
     }

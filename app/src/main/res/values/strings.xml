@@ -2,4 +2,6 @@
     <string name="app_name">Case Space</string>
     <string name="error_init_binding">Ошибка инициализации биндинга: %s</string>
     <string name="image_of_day">Картина дня</string>
+    <string name="wiki_search">Найти в Wiki</string>
+    <string name="wiki_search_helper">Поле для поиска информации на Wikipedia</string>
 </resources>

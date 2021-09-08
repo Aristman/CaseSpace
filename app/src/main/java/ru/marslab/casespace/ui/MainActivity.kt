@@ -1,8 +1,11 @@
 package ru.marslab.casespace.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.http.Url
 import ru.marslab.casespace.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
@@ -15,5 +18,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.activityMainContent.wikiSearch.setEndIconOnClickListener {
+            val searchText = binding.activityMainContent.wikiSearchText.text.toString()
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/$searchText")
+            })
+        }
     }
 }
