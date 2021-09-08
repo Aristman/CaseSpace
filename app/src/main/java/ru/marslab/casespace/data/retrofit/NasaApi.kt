@@ -9,6 +9,7 @@ interface NasaApi {
 
     @GET("planetary/apod")
     suspend fun getImageOfDay(
-        @Query("date") date: String
+        @Query("api_key") apiKey: String,
+        @Query("date") date: String? = null
     ): Response<ApodNW>
 }
