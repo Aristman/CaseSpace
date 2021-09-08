@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
 
@@ -13,6 +14,8 @@ class ApodFragment : Fragment() {
     private var _binding: FragmentApodBinding? = null
     private val binding: FragmentApodBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
+
+    val apodViewModel by viewModels<ApodViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
