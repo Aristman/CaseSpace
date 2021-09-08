@@ -1,8 +1,7 @@
 package ru.marslab.casespace.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
 import ru.marslab.casespace.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

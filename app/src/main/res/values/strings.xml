@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Case Space</string>
+    <string name="error_init_binding">Ошибка инициализации биндинга: %s</string>
+    <string name="image_of_day">Картина дня</string>
 </resources>
