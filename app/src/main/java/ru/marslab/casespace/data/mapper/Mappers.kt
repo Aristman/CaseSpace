@@ -8,5 +8,6 @@ fun ApodNW.toDomain(): Picture =
         date = date,
         title = title,
         url = url,
+        hdUrl = hdUrl,
         description = explanation
     )

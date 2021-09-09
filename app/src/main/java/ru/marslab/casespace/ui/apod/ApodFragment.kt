@@ -21,6 +21,11 @@ import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
 import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.ui.util.ViewState
+import java.time.DayOfWeek
+import java.util.*
+
+private const val YESTERDAY = -1
+private const val BEFORE_YESTERDAY = -2
 
 @AndroidEntryPoint
 class ApodFragment : Fragment() {
@@ -43,8 +48,40 @@ class ApodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
+        initListeners()
         initView()
     }
+
+    private fun initListeners() {
+        binding.run {
+            chipsDays.setOnCheckedChangeListener { _, checkedId ->
+                reloadPicture(checkedId)
+            }
+            chipPictureHd.setOnCheckedChangeListener { _, _ ->
+                reloadPicture(binding.chipsDays.checkedChipId)
+            }
+        }
+    }
+
+    private fun FragmentApodBinding.reloadPicture(checkedId: Int) {
+        when (checkedId) {
+            chipToday.id -> {
+                apodViewModel.getImageOfDay()
+            }
+            chipYesterday.id -> {
+                apodViewModel.getImageOfDay(getPostDay(YESTERDAY))
+            }
+            chipBeforeYesterday.id -> {
+                apodViewModel.getImageOfDay(getPostDay(BEFORE_YESTERDAY))
+            }
+        }
+    }
+
+    private fun getPostDay(minusDay: Int): Date? =
+        Calendar.getInstance().apply {
+            time = Date()
+            set(Calendar.DAY_OF_MONTH, get(Calendar.DAY_OF_MONTH) + minusDay)
+        }.time
 
 
     private fun initView() {
@@ -66,7 +103,11 @@ class ApodFragment : Fragment() {
                         is ViewState.Successful<*> -> {
                             val picture = result.data as Picture
                             showMainContent()
-                            loadImage(picture.url)
+                            if (binding.chipPictureHd.isChecked) {
+                                loadImage(picture.hdUrl)
+                            } else {
+                                loadImage(picture.url)
+                            }
                             updateBottomSheet(picture)
                         }
                     }

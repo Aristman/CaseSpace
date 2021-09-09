@@ -4,4 +4,8 @@
     <string name="image_of_day">Картина дня</string>
     <string name="wiki_search">Найти в Wiki</string>
     <string name="wiki_search_helper">Поле для поиска информации на Wikipedia</string>
+    <string name="before_yesterday">Позавчера</string>
+    <string name="yesterday">Вчера</string>
+    <string name="today">Сегодня</string>
+    <string name="hd_picture">HD</string>
 </resources>
