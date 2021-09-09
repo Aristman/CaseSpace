@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.http.Url
 import ru.marslab.casespace.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
@@ -19,6 +18,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initListeners()
+        initView()
+    }
+
+    private fun initView() {
+        setSupportActionBar(binding.mainBottomNavBar)
     }
 
     private fun initListeners() {
@@ -29,4 +33,5 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
+
 }

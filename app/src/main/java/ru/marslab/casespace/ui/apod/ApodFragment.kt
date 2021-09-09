@@ -2,9 +2,7 @@ package ru.marslab.casespace.ui.apod
 
 import android.accounts.NetworkErrorException
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +19,7 @@ import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
 import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.domain.repository.Constant
+import ru.marslab.casespace.domain.util.showSnackMessage
 import ru.marslab.casespace.ui.util.ViewState
 import java.net.UnknownHostException
 import java.time.DayOfWeek
@@ -52,6 +51,27 @@ class ApodFragment : Fragment() {
         initObservers()
         initListeners()
         initView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.item_search -> {
+                requireView().showSnackMessage(R.string.search)
+                true
+            }
+            R.id.item_settings -> {
+                requireView().showSnackMessage(R.string.settings)
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 
     private fun initListeners() {
@@ -89,6 +109,7 @@ class ApodFragment : Fragment() {
     private fun initView() {
         apodViewModel.getImageOfDay()
         bottomSheetBehavior = BottomSheetBehavior.from(binding.apodBottomSheet.root)
+        setHasOptionsMenu(true)
     }
 
     private fun initObservers() {

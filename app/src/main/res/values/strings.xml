@@ -10,4 +10,6 @@
     <string name="hd_picture">HD</string>
     <string name="close">Закрыть</string>
     <string name="repeat">Повторить</string>
+    <string name="search">Поиск</string>
+    <string name="settings">Настройки</string>
 </resources>

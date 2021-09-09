@@ -10,4 +10,23 @@
         android:id="@+id/activity_main_content"
         layout="@layout/layout_main_content"/>
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/main_bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:navigationIcon="@drawable/ic_baseline_menu_24"
+        android:backgroundTint="@color/design_default_color_primary"
+        app:fabAlignmentMode="center"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?colorAccent"
+        app:layout_anchor="@id/main_bottom_nav_bar"
+        android:src="@drawable/ic_baseline_menu_book_24"
+        app:tint="@color/white"
+        android:contentDescription="@null" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
