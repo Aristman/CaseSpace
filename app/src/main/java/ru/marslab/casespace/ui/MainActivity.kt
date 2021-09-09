@@ -10,6 +10,7 @@ import ru.marslab.casespace.databinding.ActivityMainBinding
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var bottomNavDrawerFragment: BottomNavDrawerFragment
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         setSupportActionBar(binding.mainBottomNavBar)
+        bottomNavDrawerFragment = BottomNavDrawerFragment()
     }
 
     private fun initListeners() {

@@ -19,10 +19,10 @@ import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
 import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.domain.repository.Constant
-import ru.marslab.casespace.domain.util.showSnackMessage
+import ru.marslab.casespace.domain.util.showMessage
+import ru.marslab.casespace.ui.BottomNavDrawerFragment
 import ru.marslab.casespace.ui.util.ViewState
 import java.net.UnknownHostException
-import java.time.DayOfWeek
 import java.util.*
 
 private const val YESTERDAY = -1
@@ -61,11 +61,15 @@ class ApodFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.item_search -> {
-                requireView().showSnackMessage(R.string.search)
+                requireView().showMessage(R.string.search)
                 true
             }
             R.id.item_settings -> {
-                requireView().showSnackMessage(R.string.settings)
+                requireView().showMessage(R.string.settings)
+                true
+            }
+            android.R.id.home -> {
+                BottomNavDrawerFragment().show(parentFragmentManager, BottomNavDrawerFragment.FRAGMENT_TAG)
                 true
             }
             else -> {

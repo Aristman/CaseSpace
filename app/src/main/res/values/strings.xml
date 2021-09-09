@@ -12,4 +12,8 @@
     <string name="repeat">Повторить</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
+    <string name="fragment_one">Первый фрагмент</string>
+    <string name="fragment_two">Второй фрагмент</string>
+    <string name="fragment_three">Третий фрагмент</string>
+    <string name="ok">OK</string>
 </resources>
