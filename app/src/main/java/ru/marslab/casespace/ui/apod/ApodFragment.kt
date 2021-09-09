@@ -20,7 +20,9 @@ import kotlinx.coroutines.launch
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
 import ru.marslab.casespace.domain.model.Picture
+import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.ui.util.ViewState
+import java.net.UnknownHostException
 import java.time.DayOfWeek
 import java.util.*
 
@@ -63,15 +65,15 @@ class ApodFragment : Fragment() {
         }
     }
 
-    private fun FragmentApodBinding.reloadPicture(checkedId: Int) {
+    private fun reloadPicture(checkedId: Int) {
         when (checkedId) {
-            chipToday.id -> {
+            binding.chipToday.id -> {
                 apodViewModel.getImageOfDay()
             }
-            chipYesterday.id -> {
+            binding.chipYesterday.id -> {
                 apodViewModel.getImageOfDay(getPostDay(YESTERDAY))
             }
-            chipBeforeYesterday.id -> {
+            binding.chipBeforeYesterday.id -> {
                 apodViewModel.getImageOfDay(getPostDay(BEFORE_YESTERDAY))
             }
         }
@@ -124,6 +126,17 @@ class ApodFragment : Fragment() {
                     error.message.toString(),
                     Snackbar.LENGTH_LONG
                 ).show()
+            }
+            is UnknownHostException -> {
+                Snackbar.make(
+                    requireView(),
+                    Constant.NO_INTERNET_CONNECTION,
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                    .setAction(R.string.repeat) {
+                        reloadPicture(binding.chipsDays.checkedChipId)
+                    }
+                    .show()
             }
             else -> {
                 throw error
