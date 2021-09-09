@@ -9,7 +9,6 @@ import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.repository.NasaRepository
 import ru.marslab.casespace.domain.repository.Storage
-import ru.marslab.casespace.domain.util.DataLoadException
 
 
 class NasaRepositoryImpl(
@@ -31,9 +30,9 @@ class NasaRepositoryImpl(
             }
             pictureOfDay.raw().code == Constant.HTTP_ERROR_CODE -> {
                 val response = Gson().fromJson(pictureOfDay.errorBody()?.string(), ErrorNW::class.java)
-                throw DataLoadException(response.msg)
+                throw NetworkErrorException(Constant.getLoadErrorString(response.msg))
             }
-            else -> throw NetworkErrorException()
+            else -> throw NetworkErrorException(Constant.getLoadErrorString(REPO_NAME))
         }
     }
 }

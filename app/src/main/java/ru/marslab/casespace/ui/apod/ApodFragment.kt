@@ -1,5 +1,6 @@
 package ru.marslab.casespace.ui.apod
 
+import android.accounts.NetworkErrorException
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,12 +58,7 @@ class ApodFragment : Fragment() {
                 apodViewModel.imageOfDayPath.collect { result ->
                     when (result) {
                         is ViewState.LoadError -> {
-                            val error = result.error
-                            Snackbar.make(
-                                requireView(),
-                                error.message.toString(),
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            handleError(result.error)
                         }
                         ViewState.Loading -> {
                             showLoading()
@@ -75,6 +71,21 @@ class ApodFragment : Fragment() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun handleError(error: Throwable) {
+        when (error) {
+            is NetworkErrorException -> {
+                Snackbar.make(
+                    requireView(),
+                    error.message.toString(),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+            else -> {
+                throw error
             }
         }
     }

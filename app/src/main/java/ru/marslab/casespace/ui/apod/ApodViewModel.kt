@@ -1,5 +1,6 @@
 package ru.marslab.casespace.ui.apod
 
+import android.accounts.NetworkErrorException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,8 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.marslab.casespace.AppDispatchers
+import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.repository.NasaRepository
-import ru.marslab.casespace.domain.util.RepositoryLoadException
 import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.ui.util.ViewState
 import java.util.*
@@ -31,7 +32,7 @@ class ApodViewModel @Inject constructor(
                     nasaRepository.getPictureOfDay(date = (day ?: Date()).getNasaFormatDate())
                 _imageOfDayPath.value =
                     picture?.let { ViewState.Successful(it) } ?: ViewState.LoadError(
-                        RepositoryLoadException(nasaRepository.getRepoName())
+                        NetworkErrorException(Constant.getLoadErrorString(nasaRepository.getRepoName()))
                     )
             } catch (e: Exception) {
                 _imageOfDayPath.value = ViewState.LoadError(e)
