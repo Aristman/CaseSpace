@@ -29,7 +29,7 @@ class ApodViewModel @Inject constructor(
             _imageOfDayPath.emit(ViewState.Loading)
             try {
                 val picture =
-                    nasaRepository.getPictureOfDay(date = (day ?: Date()).getNasaFormatDate())
+                    nasaRepository.getPictureOfDay(date = day?.getNasaFormatDate())
                 _imageOfDayPath.emit(
                     picture?.let { ViewState.Successful(it) } ?: ViewState.LoadError(
                         NetworkErrorException(Constant.getLoadErrorString(nasaRepository.getRepoName()))

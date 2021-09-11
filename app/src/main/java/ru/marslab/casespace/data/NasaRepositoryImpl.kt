@@ -22,7 +22,7 @@ class NasaRepositoryImpl(
     override fun getRepoName(): String = REPO_NAME
 
     @Throws(Exception::class)
-    override suspend fun getPictureOfDay(date: String): Picture? {
+    override suspend fun getPictureOfDay(date: String?): Picture? {
         val pictureOfDay = nasaApi.getImageOfDay(storage.getNasaApikey(), date)
         when {
             pictureOfDay.isSuccessful -> {

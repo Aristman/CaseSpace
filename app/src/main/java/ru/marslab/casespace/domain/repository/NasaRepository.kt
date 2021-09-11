@@ -7,5 +7,5 @@ interface NasaRepository {
     fun getRepoName(): String
 
     @Throws(Exception::class)
-    suspend fun getPictureOfDay(date: String): Picture?
+    suspend fun getPictureOfDay(date: String?): Picture?
 }
