@@ -1,18 +1,14 @@
 package ru.marslab.casespace.domain.util
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import ru.marslab.casespace.R
 import ru.marslab.casespace.domain.repository.Constant
 import java.text.SimpleDateFormat
 import java.util.*
 
 fun Date.getNasaFormatDate(): String {
-    return SimpleDateFormat(Constant.DATE_FORMAT_STRING, Locale.getDefault()).apply {
-        timeZone = TimeZone.getDefault()
-    }.format(this)
+    return SimpleDateFormat(Constant.DATE_FORMAT_STRING, Locale.getDefault()).format(this)
 }
 
 fun View.showMessage(message: String) {

@@ -1,8 +1,11 @@
 package ru.marslab.casespace.ui.apod
 
 import android.accounts.NetworkErrorException
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,14 +22,15 @@ import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
 import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.domain.repository.Constant
+import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.domain.util.showMessage
 import ru.marslab.casespace.ui.BottomNavDrawerFragment
 import ru.marslab.casespace.ui.util.ViewState
 import java.net.UnknownHostException
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
 import java.util.*
-
-private const val YESTERDAY = -1
-private const val BEFORE_YESTERDAY = -2
 
 @AndroidEntryPoint
 class ApodFragment : Fragment() {
@@ -69,7 +73,10 @@ class ApodFragment : Fragment() {
                 true
             }
             android.R.id.home -> {
-                BottomNavDrawerFragment().show(parentFragmentManager, BottomNavDrawerFragment.FRAGMENT_TAG)
+                BottomNavDrawerFragment().show(
+                    parentFragmentManager,
+                    BottomNavDrawerFragment.FRAGMENT_TAG
+                )
                 true
             }
             else -> {
@@ -89,6 +96,7 @@ class ApodFragment : Fragment() {
         }
     }
 
+
     private fun reloadPicture(checkedId: Int) {
         when (checkedId) {
             binding.chipToday.id -> {
@@ -103,11 +111,18 @@ class ApodFragment : Fragment() {
         }
     }
 
-    private fun getPostDay(minusDay: Int): Date? =
-        Calendar.getInstance().apply {
-            time = Date()
-            set(Calendar.DAY_OF_MONTH, get(Calendar.DAY_OF_MONTH) + minusDay)
-        }.time
+    private fun getPostDay(minusDay: Long): String =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate.now(ZoneId.of("Etc/GMT+4")).minusDays(minusDay).toString()
+        } else {
+            Date(
+                Calendar.getInstance().apply {
+                    timeZone = TimeZone.getTimeZone("Etc/GMT+4")
+                    time = Date()
+                    set(Calendar.DAY_OF_MONTH, get(Calendar.DAY_OF_MONTH) - minusDay.toInt())
+                }.time.time
+            ).getNasaFormatDate()
+        }
 
 
     private fun initView() {
@@ -200,3 +215,7 @@ class ApodFragment : Fragment() {
         super.onDestroyView()
     }
 }
+
+private const val YESTERDAY = 1L
+private const val BEFORE_YESTERDAY = 2L
+
