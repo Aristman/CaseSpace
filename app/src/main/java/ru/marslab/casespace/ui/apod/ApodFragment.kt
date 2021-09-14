@@ -22,7 +22,6 @@ import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.domain.util.showMessage
-import ru.marslab.casespace.ui.BottomNavDrawerFragment
 import ru.marslab.casespace.ui.util.ViewState
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -159,7 +158,7 @@ class ApodFragment : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
             }
-            is UnknownHostException ,
+            is UnknownHostException,
             is SocketTimeoutException -> {
                 Snackbar.make(
                     requireView(),

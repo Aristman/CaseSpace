@@ -10,9 +10,7 @@ import kotlinx.coroutines.launch
 import ru.marslab.casespace.AppDispatchers
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.repository.NasaRepository
-import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.ui.util.ViewState
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel

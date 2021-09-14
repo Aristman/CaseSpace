@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BottomSheet">
         <item name="android:background">?colorSecondaryVariant</item>
     </style>
 
     <style name="SettingTitle">
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5
+        </item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -14,11 +16,13 @@
         <item name="cardCornerRadius">20dp</item>
     </style>
 
-    <style name="Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Button">
+        <item name="android:elevation">@dimen/default_elevation</item>
+    </style>
+
+    <style name="Button.Confirm" parent="Widget.MaterialComponents.Button.OutlinedButton">
 
     </style>
 
-    <style name="Button.Confirm">
-
-    </style>
+    <dimen name="default_elevation">4dp</dimen>
 </resources>

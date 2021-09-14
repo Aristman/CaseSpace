@@ -15,11 +15,20 @@
     </style>
     
     <style name="Theme.CaseSpace.Emerald">
+        <item name="colorPrimary">@color/emerald_200__green_200</item>
+        <item name="colorPrimaryVariant">@color/emerald_700__green_700</item>
+        <item name="colorOnPrimary">@color/white__black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/lime_200</item>
+        <item name="colorSecondaryVariant">@color/lime_900__lime_500</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="MarsTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/mars_red_500__mars_red_dark_500</item>
-        <item name="colorPrimaryVariant">@color/mars_red_900__mars_red_dark_900</item>
+        <item name="colorPrimary">@color/red_500__red_dark_500</item>
+        <item name="colorPrimaryVariant">@color/red_900__red_dark_900</item>
         <item name="colorOnPrimary">@color/white__black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orange_200</item>

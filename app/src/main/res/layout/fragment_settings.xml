@@ -66,8 +66,10 @@
         android:id="@+id/btn_settings_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/close" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

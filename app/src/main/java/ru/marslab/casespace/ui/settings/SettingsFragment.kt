@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentSettingsBinding
@@ -38,6 +39,9 @@ class SettingsFragment : Fragment() {
         binding.btnApplyTheme.setOnClickListener {
             requireActivity().setTheme(mainViewModel.getCurrentTheme())
             requireActivity().recreate()
+        }
+        binding.btnSettingsClose.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

@@ -11,7 +11,7 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
     fun getCurrentTheme() = storage.getTheme()
 
-    fun saveCurrentTheme(theme: Int){
+    fun saveCurrentTheme(theme: Int) {
         storage.saveTheme(theme)
     }
 

@@ -2,9 +2,14 @@
 <resources>
 
     <!--    Day/Night colors-->
-    <color name="mars_red_500__mars_red_dark_500">#FF750D01</color>
-    <color name="mars_red_300__mars_red_dark_300">#FF950C00</color>
-    <color name="mars_red_900__mars_red_dark_900">#FF660F01</color>
+    <color name="emerald_700__green_700">#FF388E3C</color>
+    <color name="emerald_200__green_200">#FFA5D6A7</color>
+    <color name="lime_900__lime_500">#FFCDDC39</color>
+
+
+    <color name="red_500__red_dark_500">#FF750D01</color>
+    <color name="red_300__red_dark_300">#FF950C00</color>
+    <color name="red_900__red_dark_900">#FF660F01</color>
     <color name="orange_900__orange_500">#FFFF9800</color>
 
     <color name="teal_700__teal_200">#FF03DAC5</color>
