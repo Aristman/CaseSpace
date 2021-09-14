@@ -3,4 +3,5 @@
     <dimen name="search_field_conner_radius">20dp</dimen>
     <dimen name="default_padding">8dp</dimen>
     <dimen name="content_bottom_margin">64dp</dimen>
+    <dimen name="default_view_padding">16dp</dimen>
 </resources>

@@ -6,7 +6,7 @@
     app:behavior_hideable="true"
     app:behavior_peekHeight="@dimen/content_bottom_margin"
     android:paddingBottom="@dimen/content_bottom_margin"
-    android:background="@color/light_blue"
+    style="@style/BottomSheet"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView

@@ -15,7 +15,7 @@ class BottomNavDrawerFragment : BottomSheetDialogFragment() {
     }
     private var _binding: LayoutBottomNavBinding? = null
     private val binding: LayoutBottomNavBinding
-        get() = checkNotNull(_binding) { getString(R.string.error_init_binding) }
+        get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -11,7 +11,7 @@
         android:layout_marginBottom="@dimen/content_bottom_margin"
         layout="@layout/layout_main_content"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/main_bottom_nav_bar"

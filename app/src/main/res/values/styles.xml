@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BottomSheet">
+        <item name="android:background">@color/lightBlue__darkBlue</item>
+    </style>
+
+    <style name="SettingTitle">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="SettingCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">20dp</item>
+    </style>
+
+    <style name="Button" parent="Widget.MaterialComponents.Button">
+
+    </style>
+
+    <style name="Button.Confirm">
+
+    </style>
+</resources>

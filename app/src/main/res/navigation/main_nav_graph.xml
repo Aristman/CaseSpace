@@ -10,4 +10,13 @@
         android:name="ru.marslab.casespace.ui.apod.ApodFragment"
         android:label="@string/image_of_day"
         tools:layout="@layout/fragment_apod" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ru.marslab.casespace.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <action
+        android:id="@+id/show_settingsFragment"
+        app:destination="@id/settingsFragment"
+        app:launchSingleTop="true" />
 </navigation>
