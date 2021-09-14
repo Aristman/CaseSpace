@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="BottomSheet">
-        <item name="android:background">@color/lightBlue__darkBlue</item>
+        <item name="android:background">?colorSecondaryVariant</item>
     </style>
 
     <style name="SettingTitle">
@@ -14,7 +14,7 @@
         <item name="cardCornerRadius">20dp</item>
     </style>
 
-    <style name="Button" parent="Widget.MaterialComponents.Button">
+    <style name="Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
 
     </style>
 
