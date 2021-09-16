@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.apod.ApodFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/apod_main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chips_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:singleLine="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_before_yesterday"
+                    android:layout_width="wrap_content"
+                    android:text="@string/before_yesterday"
+                    android:checkable="true"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_yesterday"
+                    android:layout_width="wrap_content"
+                    android:text="@string/yesterday"
+                    android:checkable="true"
+                    android:layout_height="wrap_content"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_today"
+                    android:text="@string/today"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_picture_hd"
+                android:layout_width="wrap_content"
+                android:text="@string/hd_picture"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/image_of_day"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chips_days" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+    <include
+        android:id="@+id/apod_bottom_sheet"
+        layout="@layout/layout_apod_bottom_sheet"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

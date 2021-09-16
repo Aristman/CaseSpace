@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Case Space</string>
+    <string name="error_init_binding">Ошибка инициализации биндинга: %s</string>
+    <string name="image_of_day">Картина дня</string>
+    <string name="wiki_search">Найти в Wiki</string>
+    <string name="wiki_search_helper">Поле для поиска информации на Wikipedia</string>
+    <string name="before_yesterday">Позавчера</string>
+    <string name="yesterday">Вчера</string>
+    <string name="today">Сегодня</string>
+    <string name="hd_picture">HD</string>
+    <string name="close">Закрыть</string>
+    <string name="repeat">Повторить</string>
+    <string name="search">Поиск</string>
+    <string name="settings">Настройки</string>
+    <string name="fragment_one">Первый фрагмент</string>
+    <string name="fragment_two">Второй фрагмент</string>
+    <string name="fragment_three">Третий фрагмент</string>
+    <string name="ok">OK</string>
 </resources>

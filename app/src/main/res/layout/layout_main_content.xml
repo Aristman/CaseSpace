@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/wiki_search"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/wiki_search"
+        app:boxCornerRadiusBottomStart="@dimen/search_field_conner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/search_field_conner_radius"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/wiki"
+        app:endIconCheckable="true"
+        app:helperText="@string/wiki_search_helper"
+        app:helperTextEnabled="true"
+        app:layout_constraintBottom_toTopOf="@id/main_fragment_container"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/wiki_search_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wiki_search"
+        app:navGraph="@navigation/main_nav_graph" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
