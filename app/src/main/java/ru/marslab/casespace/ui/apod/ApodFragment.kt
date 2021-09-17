@@ -18,7 +18,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentApodBinding
-import ru.marslab.casespace.domain.model.Picture
+import ru.marslab.casespace.domain.model.MediaType
+import ru.marslab.casespace.domain.model.PictureOfDay
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.domain.util.showMessage
@@ -134,18 +135,27 @@ class ApodFragment : Fragment() {
                             showLoading()
                         }
                         is ViewState.Successful<*> -> {
-                            val picture = result.data as Picture
-                            showMainContent()
-                            if (binding.chipPictureHd.isChecked) {
-                                loadImage(picture.hdUrl)
-                            } else {
-                                loadImage(picture.url)
-                            }
-                            updateBottomSheet(picture)
+                            val picture = result.data as PictureOfDay
+                            updateUi(picture)
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun updateUi(picture: PictureOfDay) {
+        when (picture.type) {
+            MediaType.PHOTO -> {
+                showMainContent()
+                if (binding.chipPictureHd.isChecked) {
+                    picture.hdUrl?.let { loadImage(it) }
+                } else {
+                    loadImage(picture.url)
+                }
+                updateBottomSheet(picture)
+            }
+            MediaType.VIDEO -> TODO()
         }
     }
 
@@ -176,7 +186,7 @@ class ApodFragment : Fragment() {
         }
     }
 
-    private fun updateBottomSheet(picture: Picture) {
+    private fun updateBottomSheet(picture: PictureOfDay) {
         binding.apodBottomSheet.run {
             bottomSheetTitle.text = picture.title
             bottomSheetContent.text = picture.description
