@@ -23,4 +23,5 @@
     <string name="apply">Применить</string>
     <string name="earth">Земля</string>
     <string name="mars">Марс</string>
+    <string name="path_video_preview">https://img.youtube.com/vi/%s/0.jpg</string>
 </resources>

@@ -32,6 +32,7 @@ import java.util.*
 
 private const val YESTERDAY = 1L
 private const val BEFORE_YESTERDAY = 2L
+private const val SPLIT_CHAR = '/'
 
 @AndroidEntryPoint
 class ApodFragment : Fragment() {
@@ -136,6 +137,8 @@ class ApodFragment : Fragment() {
                         }
                         is ViewState.Successful<*> -> {
                             val picture = result.data as PictureOfDay
+                            showMainContent()
+                            updateBottomSheet(picture)
                             updateUi(picture)
                         }
                     }
@@ -147,16 +150,23 @@ class ApodFragment : Fragment() {
     private fun updateUi(picture: PictureOfDay) {
         when (picture.type) {
             MediaType.PHOTO -> {
-                showMainContent()
+                binding.chipPictureHd.visibility = View.VISIBLE
                 if (binding.chipPictureHd.isChecked) {
                     picture.hdUrl?.let { loadImage(it) }
                 } else {
                     loadImage(picture.url)
                 }
-                updateBottomSheet(picture)
             }
-            MediaType.VIDEO -> TODO()
+            MediaType.VIDEO -> {
+                binding.chipPictureHd.visibility = View.GONE
+                binding.imageOfDay.load(getVideoPreviewPath(picture.url))
+            }
         }
+    }
+
+    private fun getVideoPreviewPath(url: String): String {
+        val videoId = url.split('/').last().split('?').first()
+        return getString(R.string.path_video_preview, videoId)
     }
 
     private fun handleError(error: Throwable) {

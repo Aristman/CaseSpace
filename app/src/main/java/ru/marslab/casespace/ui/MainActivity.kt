@@ -10,6 +10,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.ActivityMainBinding
@@ -23,9 +25,6 @@ class MainActivity : AppCompatActivity() {
             .navController
     }
 
-    private val bottomNavDrawerFragment: BottomNavDrawerFragment by lazy {
-        BottomNavDrawerFragment()
-    }
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -40,7 +39,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        setSupportActionBar(binding.mainBottomNavBar)
+        val mainToolbar = binding.activityMainContent.mainToolbar
+        setSupportActionBar(mainToolbar)
+        mainToolbar.setupWithNavController(
+            navController,
+            AppBarConfiguration(navController.graph)
+        )
+        binding.activityMainContent.mainBottomNavigation.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.settingsFragment -> {
@@ -55,8 +60,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setNavVisibility(visibility: Int) {
         binding.activityMainContent.wikiSearch.visibility = visibility
-        binding.mainBottomNavBar.visibility = visibility
-        binding.mainFab.visibility = visibility
     }
 
     private fun initListeners() {
@@ -77,13 +80,6 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.item_menu_settings -> {
                 navController.navigate(R.id.show_settingsFragment)
-                true
-            }
-            android.R.id.home -> {
-                bottomNavDrawerFragment.show(
-                    supportFragmentManager,
-                    BottomNavDrawerFragment.FRAGMENT_TAG
-                )
                 true
             }
             else -> super.onOptionsItemSelected(item)
