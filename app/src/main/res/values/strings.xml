@@ -3,7 +3,6 @@
     <string name="error_init_binding">Ошибка инициализации биндинга: %s</string>
     <string name="image_of_day">Картина дня</string>
     <string name="wiki_search">Найти в Wiki</string>
-    <string name="wiki_search_helper">Поле для поиска информации на Wikipedia</string>
     <string name="before_yesterday">Позавчера</string>
     <string name="yesterday">Вчера</string>
     <string name="today">Сегодня</string>
@@ -16,4 +15,12 @@
     <string name="fragment_two">Второй фрагмент</string>
     <string name="fragment_three">Третий фрагмент</string>
     <string name="ok">OK</string>
+    <string name="nasa_time_zone">Etc/GMT+4</string>
+    <string name="themes_choice_title">Выбор темы приложения</string>
+    <string name="mars_theme">Тема \"Марс\"</string>
+    <string name="default_theme">Тема по-умолчанию</string>
+    <string name="emerald_theme">Тема \"Изумруд\"</string>
+    <string name="apply">Применить</string>
+    <string name="earth">Земля</string>
+    <string name="mars">Марс</string>
 </resources>

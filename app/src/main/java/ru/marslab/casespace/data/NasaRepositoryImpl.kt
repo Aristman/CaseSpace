@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import ru.marslab.casespace.data.mapper.toDomain
 import ru.marslab.casespace.data.model.ErrorNW
 import ru.marslab.casespace.data.retrofit.NasaApi
-import ru.marslab.casespace.domain.model.Picture
+import ru.marslab.casespace.domain.model.PictureOfDay
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.repository.NasaRepository
 import ru.marslab.casespace.domain.repository.Storage
@@ -22,14 +22,15 @@ class NasaRepositoryImpl(
     override fun getRepoName(): String = REPO_NAME
 
     @Throws(Exception::class)
-    override suspend fun getPictureOfDay(date: String?): Picture? {
+    override suspend fun getPictureOfDay(date: String?): PictureOfDay? {
         val pictureOfDay = nasaApi.getImageOfDay(storage.getNasaApikey(), date)
         when {
             pictureOfDay.isSuccessful -> {
                 return pictureOfDay.body()?.toDomain()
             }
             pictureOfDay.raw().code == Constant.HTTP_ERROR_CODE -> {
-                val response = Gson().fromJson(pictureOfDay.errorBody()?.string(), ErrorNW::class.java)
+                val response =
+                    Gson().fromJson(pictureOfDay.errorBody()?.string(), ErrorNW::class.java)
                 throw NetworkErrorException(Constant.getLoadErrorString(response.msg))
             }
             else -> throw NetworkErrorException(Constant.getLoadErrorString(REPO_NAME))

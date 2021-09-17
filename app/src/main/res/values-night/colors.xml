@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    Day/Night colors-->
+    <color name="emerald_700__green_700">#FF388E3C</color>
+    <color name="emerald_200__green_200">#FFA5D6A7</color>
+    <color name="lime_900__lime_500">#FFCDDC39</color>
+
+
+    <color name="red_500__red_dark_500">#FF750D01</color>
+    <color name="red_300__red_dark_300">#FF950C00</color>
+    <color name="red_900__red_dark_900">#FF660F01</color>
+    <color name="orange_900__orange_500">#FFFF9800</color>
+
+    <color name="teal_700__teal_200">#FF03DAC5</color>
+    <color name="white__black">#FF000000</color>
+    <color name="purple_500__purple_200">#FFBB86FC</color>
+    <color name="lightBlue__darkBlue">#063C3C</color>
+</resources>

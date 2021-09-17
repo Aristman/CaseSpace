@@ -1,5 +1,6 @@
 package ru.marslab.casespace.di
 
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideStorage(): Storage =
-        StorageImpl()
+    fun provideStorage(sharedPreferences: SharedPreferences): Storage =
+        StorageImpl(sharedPreferences)
+
 }

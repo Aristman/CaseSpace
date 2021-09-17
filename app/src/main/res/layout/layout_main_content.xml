@@ -4,6 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/wiki_search"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/wiki_search"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -12,13 +25,12 @@
         android:hint="@string/wiki_search"
         app:boxCornerRadiusBottomStart="@dimen/search_field_conner_radius"
         app:boxCornerRadiusTopEnd="@dimen/search_field_conner_radius"
-        app:endIconMode="custom"
-        app:endIconDrawable="@drawable/wiki"
         app:endIconCheckable="true"
-        app:helperText="@string/wiki_search_helper"
+        app:endIconDrawable="@drawable/wiki"
+        app:endIconMode="custom"
         app:helperTextEnabled="true"
         app:layout_constraintBottom_toTopOf="@id/main_fragment_container"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/main_appbar_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/wiki_search_text"
@@ -32,8 +44,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_bottom_navigation"
         app:layout_constraintTop_toBottomOf="@id/wiki_search"
         app:navGraph="@navigation/main_nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
