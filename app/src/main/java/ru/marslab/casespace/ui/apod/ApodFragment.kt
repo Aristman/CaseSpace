@@ -63,7 +63,7 @@ class ApodFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar_apod, menu)
+        inflater.inflate(R.menu.menu_toolbar_main, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
