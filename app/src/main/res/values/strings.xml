@@ -15,7 +15,6 @@
     <string name="fragment_two">Второй фрагмент</string>
     <string name="fragment_three">Третий фрагмент</string>
     <string name="ok">OK</string>
-    <string name="nasa_time_zone">Etc/GMT+4</string>
     <string name="themes_choice_title">Выбор темы приложения</string>
     <string name="mars_theme">Тема \"Марс\"</string>
     <string name="default_theme">Тема по-умолчанию</string>
@@ -24,4 +23,5 @@
     <string name="earth">Земля</string>
     <string name="mars">Марс</string>
     <string name="path_video_preview">https://img.youtube.com/vi/%s/0.jpg</string>
+    <string name="picture_of_day">Картинка дня</string>
 </resources>

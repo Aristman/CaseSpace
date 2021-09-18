@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/apodFragment">
+    app:startDestination="@id/pictureOfDayFragment">
 
-    <fragment
-        android:id="@+id/apodFragment"
-        android:name="ru.marslab.casespace.ui.apod.ApodFragment"
-        android:label="@string/image_of_day"
-        tools:layout="@layout/fragment_apod" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.marslab.casespace.ui.settings.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <action
         android:id="@+id/show_settingsFragment"
         app:destination="@id/settingsFragment"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/pictureOfDayFragment"
+        android:name="ru.marslab.casespace.ui.apod.ApodFragment"
+        android:label="@string/picture_of_day"
+        tools:layout="@layout/fragment_apod" />
 </navigation>

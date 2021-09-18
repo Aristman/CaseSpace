@@ -9,6 +9,8 @@ object Constant {
     const val HTTP_ERROR_CODE = 400
 
     const val SETTING_THEME = "SETTING_THEME"
+    const val NASA_TIME_ZONE = "Etc/GMT+4"
+
 
     fun getBaseApiPath(): String = BASE_API_PATH
     fun getLoadErrorString(message: String): String =
