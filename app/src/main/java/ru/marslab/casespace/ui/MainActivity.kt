@@ -3,7 +3,6 @@ package ru.marslab.casespace.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -69,11 +68,6 @@ class MainActivity : AppCompatActivity() {
                 data = Uri.parse("https://en.wikipedia.org/wiki/$searchText")
             })
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_bottom_nav, menu)
-        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

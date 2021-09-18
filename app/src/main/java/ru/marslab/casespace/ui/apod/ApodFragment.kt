@@ -29,18 +29,18 @@ class ApodFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         binding.vpPictures.run {
             adapter = apodContentAdapter
             currentItem = 2
         }
         TabLayoutMediator(binding.tabPictures, binding.vpPictures) { tab, position ->
-            var toolbarTitle = ""
-            when (position) {
-                0 -> toolbarTitle = getString(R.string.before_yesterday)
-                1 -> toolbarTitle = getString(R.string.yesterday)
-                2 -> toolbarTitle = getString(R.string.today)
+            tab.text = when (position) {
+                0 -> getString(R.string.before_yesterday)
+                1 -> getString(R.string.yesterday)
+                2 -> getString(R.string.today)
+                else -> getString(R.string.today)
             }
-            tab.text = toolbarTitle
         }.attach()
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             getString(R.string.picture_of_day)
