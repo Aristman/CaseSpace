@@ -1,6 +1,7 @@
 package ru.marslab.casespace.ui.apod
 
 import android.accounts.NetworkErrorException
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.*
@@ -32,7 +33,7 @@ import java.util.*
 
 private const val YESTERDAY = 1L
 private const val BEFORE_YESTERDAY = 2L
-private const val SPLIT_CHAR = '/'
+private const val VIDEO_BASE_URL = "https://www.youtube.com/watch?v="
 
 @AndroidEntryPoint
 class ApodFragment : Fragment() {
@@ -119,9 +120,12 @@ class ApodFragment : Fragment() {
         }
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun initView() {
         setHasOptionsMenu(true)
         apodViewModel.getImageOfDay()
+        val settings = binding.videoPlayer.settings
+        settings.javaScriptEnabled = true
     }
 
     private fun initObservers() {
@@ -150,6 +154,8 @@ class ApodFragment : Fragment() {
     private fun updateUi(picture: PictureOfDay) {
         when (picture.type) {
             MediaType.PHOTO -> {
+                binding.imageOfDay.visibility = View.VISIBLE
+                binding.videoPlayer.visibility = View.GONE
                 binding.chipPictureHd.visibility = View.VISIBLE
                 if (binding.chipPictureHd.isChecked) {
                     picture.hdUrl?.let { loadImage(it) }
@@ -158,8 +164,10 @@ class ApodFragment : Fragment() {
                 }
             }
             MediaType.VIDEO -> {
+                binding.imageOfDay.visibility = View.GONE
+                binding.videoPlayer.visibility = View.VISIBLE
                 binding.chipPictureHd.visibility = View.GONE
-                binding.imageOfDay.load(getVideoPreviewPath(picture.url))
+                binding.videoPlayer.loadUrl(picture.url)
             }
         }
     }
@@ -226,6 +234,7 @@ class ApodFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
 }
 
 
