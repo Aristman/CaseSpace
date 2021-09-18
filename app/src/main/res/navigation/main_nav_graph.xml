@@ -24,4 +24,9 @@
         android:name="ru.marslab.casespace.ui.earth.EarthFragment"
         android:label="@string/earth"
         tools:layout="@layout/fragment_earth" />
+    <fragment
+        android:id="@+id/marsFragment"
+        android:name="ru.marslab.casespace.ui.mars.MarsFragment"
+        android:label="@string/mars"
+        tools:layout="@layout/fragment_mars" />
 </navigation>

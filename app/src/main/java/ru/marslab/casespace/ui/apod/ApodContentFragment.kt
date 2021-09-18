@@ -128,23 +128,27 @@ class ApodContentFragment : Fragment() {
     private fun handleError(error: Throwable) {
         when (error) {
             is NetworkErrorException -> {
-                Snackbar.make(
-                    requireView(),
-                    error.message.toString(),
-                    Snackbar.LENGTH_LONG
-                ).show()
+                _binding?.let {
+                    Snackbar.make(
+                        requireView(),
+                        error.message.toString(),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
             }
             is UnknownHostException,
             is SocketTimeoutException -> {
-                Snackbar.make(
-                    requireView(),
-                    Constant.NO_INTERNET_CONNECTION,
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction(R.string.repeat) {
-                        apodViewModel.getImageOfDay(postDay)
-                    }
-                    .show()
+                _binding?.let {
+                    Snackbar.make(
+                        requireView(),
+                        Constant.NO_INTERNET_CONNECTION,
+                        Snackbar.LENGTH_INDEFINITE
+                    )
+                        .setAction(R.string.repeat) {
+                            apodViewModel.getImageOfDay(postDay)
+                        }
+                        .show()
+                }
             }
             else -> {
                 throw error
