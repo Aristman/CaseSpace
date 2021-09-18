@@ -38,11 +38,7 @@ class ApodContentFragment : Fragment() {
     private val binding: FragmentApodContentBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
 
-    private val bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout> by lazy {
-        BottomSheetBehavior.from(
-            binding.apodBottomSheet.root
-        )
-    }
+    private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
     private val apodViewModel by viewModels<ApodViewModel>()
 
@@ -78,11 +74,14 @@ class ApodContentFragment : Fragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initView() {
-        setHasOptionsMenu(true)
-        postDay = arguments?.getParcelable(POST_DAY_TAG)
-        apodViewModel.getImageOfDay(postDay)
-        binding.videoPlayer.settings.apply {
-            javaScriptEnabled = true
+        _binding?.let {
+            bottomSheetBehavior = BottomSheetBehavior.from(binding.apodBottomSheet.root)
+            setHasOptionsMenu(true)
+            postDay = arguments?.getParcelable(POST_DAY_TAG)
+            apodViewModel.getImageOfDay(postDay)
+            binding.videoPlayer.settings.apply {
+                javaScriptEnabled = true
+            }
         }
     }
 
@@ -110,16 +109,18 @@ class ApodContentFragment : Fragment() {
     }
 
     private fun updateUi(picture: PictureOfDay) {
-        when (picture.type) {
-            MediaType.PHOTO -> {
-                binding.imageOfDay.visibility = View.VISIBLE
-                binding.videoPlayer.visibility = View.GONE
-                loadImage(picture.url)
-            }
-            MediaType.VIDEO -> {
-                binding.imageOfDay.visibility = View.GONE
-                binding.videoPlayer.visibility = View.VISIBLE
-                binding.videoPlayer.loadUrl(picture.url)
+        _binding?.let {
+            when (picture.type) {
+                MediaType.PHOTO -> {
+                    binding.imageOfDay.visibility = View.VISIBLE
+                    binding.videoPlayer.visibility = View.GONE
+                    loadImage(picture.url)
+                }
+                MediaType.VIDEO -> {
+                    binding.imageOfDay.visibility = View.GONE
+                    binding.videoPlayer.visibility = View.VISIBLE
+                    binding.videoPlayer.loadUrl(picture.url)
+                }
             }
         }
     }
@@ -152,28 +153,28 @@ class ApodContentFragment : Fragment() {
     }
 
     private fun updateBottomSheet(picture: PictureOfDay) {
-        binding.apodBottomSheet.run {
-            bottomSheetTitle.text = picture.title
-            bottomSheetContent.text = picture.description
+        _binding?.apodBottomSheet?.let {
+            it.bottomSheetTitle.text = picture.title
+            it.bottomSheetContent.text = picture.description
         }
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior?.let { it.state = BottomSheetBehavior.STATE_COLLAPSED }
     }
 
     private fun loadImage(imageUrl: String) {
-        binding.imageOfDay.load(imageUrl)
+        _binding?.imageOfDay?.load(imageUrl)
     }
 
     private fun showLoading() {
-        binding.run {
-            apodMainContent.visibility = View.GONE
-            loadingIndicator.visibility = View.VISIBLE
+        _binding?.let {
+            it.apodMainContent.visibility = View.GONE
+            it.loadingIndicator.visibility = View.VISIBLE
         }
     }
 
     private fun showMainContent() {
-        binding.run {
-            apodMainContent.visibility = View.VISIBLE
-            loadingIndicator.visibility = View.GONE
+        _binding?.let {
+            it.apodMainContent.visibility = View.VISIBLE
+            it.loadingIndicator.visibility = View.GONE
         }
     }
 

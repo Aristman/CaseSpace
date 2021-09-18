@@ -15,6 +15,7 @@
         android:id="@+id/tab_pictures"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorGravity="top" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,9 +14,9 @@ import ru.marslab.casespace.ui.apod.adapter.ApodContentAdapter
 class ApodFragment : Fragment() {
     private var _binding: FragmentApodBinding? = null
     private val binding: FragmentApodBinding
-        get() = checkNotNull(_binding) { getString(R.string.error_init_binding) }
+        get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
 
-    private val apodContentAdapter: ApodContentAdapter by lazy { ApodContentAdapter(this) }
+    private lateinit var apodContentAdapter: ApodContentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,10 +30,8 @@ class ApodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        binding.vpPictures.run {
-            adapter = apodContentAdapter
-            currentItem = 2
-        }
+        apodContentAdapter = ApodContentAdapter(this)
+        binding.vpPictures.adapter = apodContentAdapter
         TabLayoutMediator(binding.tabPictures, binding.vpPictures) { tab, position ->
             tab.text = when (position) {
                 0 -> getString(R.string.before_yesterday)
@@ -44,6 +42,7 @@ class ApodFragment : Fragment() {
         }.attach()
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             getString(R.string.picture_of_day)
+        binding.vpPictures.currentItem = 2
     }
 
     override fun onDestroyView() {
