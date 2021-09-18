@@ -78,7 +78,7 @@ class ApodContentFragment : Fragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initView() {
-        postDay = arguments?.getParcelable<PostDay>(POST_DAY_TAG)
+        postDay = arguments?.getParcelable(POST_DAY_TAG)
         apodViewModel.getImageOfDay(postDay)
         binding.videoPlayer.settings.apply {
             javaScriptEnabled = true

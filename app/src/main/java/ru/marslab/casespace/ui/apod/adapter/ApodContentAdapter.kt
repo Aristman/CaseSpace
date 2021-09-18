@@ -20,9 +20,9 @@ class ApodContentAdapter(
                 putParcelable(
                     ApodContentFragment.POST_DAY_TAG,
                     when (position) {
-                        0 -> PostDay.TODAY
+                        2 -> PostDay.TODAY
                         1 -> PostDay.YESTERDAY
-                        2 -> PostDay.BEFORE_YESTERDAY
+                        0 -> PostDay.BEFORE_YESTERDAY
                         else -> PostDay.TODAY
                     }
                 )
