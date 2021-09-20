@@ -8,4 +8,7 @@ interface NasaRepository {
 
     @Throws(Exception::class)
     suspend fun getPictureOfDay(date: String?): PictureOfDay?
+
+    @Throws(Exception::class)
+    suspend fun getEarthAssets(lon: Float, lat: Float, date: String, dim: Float? = 0.1f): String?
 }

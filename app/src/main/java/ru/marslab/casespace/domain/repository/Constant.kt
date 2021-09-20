@@ -11,6 +11,9 @@ object Constant {
     const val SETTING_THEME = "SETTING_THEME"
     const val NASA_TIME_ZONE = "Etc/GMT+4"
 
+    const val GPS_REFRESH_PERIOD = 6000L
+    const val GPS_DISTANCE = 100f
+
 
     fun getBaseApiPath(): String = BASE_API_PATH
     fun getLoadErrorString(message: String): String =

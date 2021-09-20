@@ -1,6 +1,5 @@
 package ru.marslab.casespace.ui.apod
 
-import android.accounts.NetworkErrorException
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
@@ -12,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -21,11 +19,9 @@ import ru.marslab.casespace.databinding.FragmentApodContentBinding
 import ru.marslab.casespace.domain.model.MediaType
 import ru.marslab.casespace.domain.model.PictureOfDay
 import ru.marslab.casespace.domain.model.PostDay
-import ru.marslab.casespace.domain.repository.Constant
+import ru.marslab.casespace.domain.util.handleError
 import ru.marslab.casespace.domain.util.showMessage
 import ru.marslab.casespace.ui.util.ViewState
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 @AndroidEntryPoint
 class ApodContentFragment : Fragment() {
@@ -89,7 +85,11 @@ class ApodContentFragment : Fragment() {
                 apodViewModel.imageOfDayPath.collect { result ->
                     when (result) {
                         is ViewState.LoadError -> {
-                            handleError(result.error)
+                            this@ApodContentFragment.handleError(result.error) {
+                                apodViewModel.getImageOfDay(
+                                    postDay
+                                )
+                            }
                         }
                         ViewState.Loading -> {
                             showLoading()
@@ -99,6 +99,8 @@ class ApodContentFragment : Fragment() {
                             showMainContent()
                             updateBottomSheet(picture)
                             updateUi(picture)
+                        }
+                        ViewState.Init -> {
                         }
                     }
                 }
@@ -121,32 +123,32 @@ class ApodContentFragment : Fragment() {
         }
     }
 
-    private fun handleError(error: Throwable) {
-        when (error) {
-            is NetworkErrorException -> {
-                Snackbar.make(
-                    requireView(),
-                    error.message.toString(),
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-            is UnknownHostException,
-            is SocketTimeoutException -> {
-                Snackbar.make(
-                    requireView(),
-                    Constant.NO_INTERNET_CONNECTION,
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction(R.string.repeat) {
-                        apodViewModel.getImageOfDay(postDay)
-                    }
-                    .show()
-            }
-            else -> {
-                throw error
-            }
-        }
-    }
+//    private fun handleError(error: Throwable) {
+//        when (error) {
+//            is NetworkErrorException -> {
+//                Snackbar.make(
+//                    requireView(),
+//                    error.message.toString(),
+//                    Snackbar.LENGTH_LONG
+//                ).show()
+//            }
+//            is UnknownHostException,
+//            is SocketTimeoutException -> {
+//                Snackbar.make(
+//                    requireView(),
+//                    Constant.NO_INTERNET_CONNECTION,
+//                    Snackbar.LENGTH_INDEFINITE
+//                )
+//                    .setAction(R.string.repeat) {
+//                        apodViewModel.getImageOfDay(postDay)
+//                    }
+//                    .show()
+//            }
+//            else -> {
+//                throw error
+//            }
+//        }
+//    }
 
     private fun updateBottomSheet(picture: PictureOfDay) {
         binding.apodBottomSheet.run {

@@ -16,11 +16,11 @@ interface NasaApi {
 
     @GET("planetary/earth/assets")
     suspend fun getEarthAsset(
+        @Query("api_key") apiKey: String,
         @Query("lon") lon: Float,
         @Query("lat") lat: Float,
         @Query("date") date: String,
-        @Query("dim") dim: Float? = null,
-        @Query("api_key") apiKey: String
+        @Query("dim") dim: Float? = null
     ): Response<EarthNW>
 
 
