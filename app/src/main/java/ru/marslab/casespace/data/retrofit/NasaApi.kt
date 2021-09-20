@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.marslab.casespace.data.model.ApodNW
+import ru.marslab.casespace.data.model.EarthNW
 
 interface NasaApi {
 
@@ -12,4 +13,15 @@ interface NasaApi {
         @Query("api_key") apiKey: String,
         @Query("date") date: String? = null
     ): Response<ApodNW>
+
+    @GET("planetary/earth/assets")
+    suspend fun getEarthAsset(
+        @Query("lon") lon: Float,
+        @Query("lat") lat: Float,
+        @Query("date") date: String,
+        @Query("dim") dim: Float? = null,
+        @Query("api_key") apiKey: String
+    ): Response<EarthNW>
+
+
 }

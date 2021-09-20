@@ -24,4 +24,10 @@
     <string name="mars">Марс</string>
     <string name="path_video_preview">https://img.youtube.com/vi/%s/0.jpg</string>
     <string name="picture_of_day">Картинка дня</string>
+    <string name="cancel">Отмена</string>
+    <string name="close_app_permission_title">Не получены требуемые разрешения!</string>
+    <string name="close_app_permission_message">Для нормальной работы приложения тебуется выдача следующих разрешений:\n 1. Определение локации.\n</string>
+    <string name="locate_request_permission_title">Доступ к локации</string>
+    <string name="locate_request_permission_text">Для получения данных по фото земли необходимо предоставить разрешение на определение вашего местоположения.</string>
+    <string name="no_gps">Не включен GPS!</string>
 </resources>

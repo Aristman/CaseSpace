@@ -74,20 +74,18 @@ class ApodContentFragment : Fragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initView() {
-        _binding?.let {
-            bottomSheetBehavior = BottomSheetBehavior.from(binding.apodBottomSheet.root)
-            setHasOptionsMenu(true)
-            postDay = arguments?.getParcelable(POST_DAY_TAG)
-            apodViewModel.getImageOfDay(postDay)
-            binding.videoPlayer.settings.apply {
-                javaScriptEnabled = true
-            }
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.apodBottomSheet.root)
+        setHasOptionsMenu(true)
+        postDay = arguments?.getParcelable(POST_DAY_TAG)
+        apodViewModel.getImageOfDay(postDay)
+        binding.videoPlayer.settings.apply {
+            javaScriptEnabled = true
         }
     }
 
     private fun initObservers() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 apodViewModel.imageOfDayPath.collect { result ->
                     when (result) {
                         is ViewState.LoadError -> {
@@ -109,18 +107,16 @@ class ApodContentFragment : Fragment() {
     }
 
     private fun updateUi(picture: PictureOfDay) {
-        _binding?.let {
-            when (picture.type) {
-                MediaType.PHOTO -> {
-                    binding.imageOfDay.visibility = View.VISIBLE
-                    binding.videoPlayer.visibility = View.GONE
-                    loadImage(picture.url)
-                }
-                MediaType.VIDEO -> {
-                    binding.imageOfDay.visibility = View.GONE
-                    binding.videoPlayer.visibility = View.VISIBLE
-                    binding.videoPlayer.loadUrl(picture.url)
-                }
+        when (picture.type) {
+            MediaType.PHOTO -> {
+                binding.imageOfDay.visibility = View.VISIBLE
+                binding.videoPlayer.visibility = View.GONE
+                loadImage(picture.url)
+            }
+            MediaType.VIDEO -> {
+                binding.imageOfDay.visibility = View.GONE
+                binding.videoPlayer.visibility = View.VISIBLE
+                binding.videoPlayer.loadUrl(picture.url)
             }
         }
     }
@@ -128,27 +124,23 @@ class ApodContentFragment : Fragment() {
     private fun handleError(error: Throwable) {
         when (error) {
             is NetworkErrorException -> {
-                _binding?.let {
-                    Snackbar.make(
-                        requireView(),
-                        error.message.toString(),
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
+                Snackbar.make(
+                    requireView(),
+                    error.message.toString(),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
             is UnknownHostException,
             is SocketTimeoutException -> {
-                _binding?.let {
-                    Snackbar.make(
-                        requireView(),
-                        Constant.NO_INTERNET_CONNECTION,
-                        Snackbar.LENGTH_INDEFINITE
-                    )
-                        .setAction(R.string.repeat) {
-                            apodViewModel.getImageOfDay(postDay)
-                        }
-                        .show()
-                }
+                Snackbar.make(
+                    requireView(),
+                    Constant.NO_INTERNET_CONNECTION,
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                    .setAction(R.string.repeat) {
+                        apodViewModel.getImageOfDay(postDay)
+                    }
+                    .show()
             }
             else -> {
                 throw error
@@ -157,28 +149,28 @@ class ApodContentFragment : Fragment() {
     }
 
     private fun updateBottomSheet(picture: PictureOfDay) {
-        _binding?.apodBottomSheet?.let {
-            it.bottomSheetTitle.text = picture.title
-            it.bottomSheetContent.text = picture.description
+        binding.apodBottomSheet.run {
+            bottomSheetTitle.text = picture.title
+            bottomSheetContent.text = picture.description
         }
         bottomSheetBehavior?.let { it.state = BottomSheetBehavior.STATE_COLLAPSED }
     }
 
     private fun loadImage(imageUrl: String) {
-        _binding?.imageOfDay?.load(imageUrl)
+        binding.imageOfDay.load(imageUrl)
     }
 
     private fun showLoading() {
-        _binding?.let {
-            it.apodMainContent.visibility = View.GONE
-            it.loadingIndicator.visibility = View.VISIBLE
+        binding.run {
+            apodMainContent.visibility = View.GONE
+            loadingIndicator.visibility = View.VISIBLE
         }
     }
 
     private fun showMainContent() {
-        _binding?.let {
-            it.apodMainContent.visibility = View.VISIBLE
-            it.loadingIndicator.visibility = View.GONE
+        binding.run {
+            apodMainContent.visibility = View.VISIBLE
+            loadingIndicator.visibility = View.GONE
         }
     }
 
