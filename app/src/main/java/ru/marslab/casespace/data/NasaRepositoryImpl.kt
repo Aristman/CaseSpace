@@ -6,6 +6,7 @@ import retrofit2.Response
 import ru.marslab.casespace.data.mapper.toDomain
 import ru.marslab.casespace.data.model.ErrorNW
 import ru.marslab.casespace.data.retrofit.NasaApi
+import ru.marslab.casespace.domain.model.EarthImage
 import ru.marslab.casespace.domain.model.PictureOfDay
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.repository.NasaRepository
@@ -37,6 +38,14 @@ class NasaRepositoryImpl(
     ): String? {
         val earthAsset = nasaApi.getEarthAsset(storage.getNasaApikey(), lon, lat, date, dim)
         return checkResponse(earthAsset, REPO_NAME).body()?.url
+    }
+
+    override suspend fun getEpicImageList(collectionType: String): List<EarthImage>? {
+        val epicImages = nasaApi.getEpicImages(
+            url = Constant.getEpicBaseApiPath() + collectionType,
+        )
+        return checkResponse(epicImages, REPO_NAME).body()
+            ?.map { it.toDomain(collectionType, Constant.DEFAULT_IMAGE_TYPE) }
     }
 }
 

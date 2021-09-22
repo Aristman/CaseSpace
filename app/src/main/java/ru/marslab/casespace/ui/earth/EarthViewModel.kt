@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import ru.marslab.casespace.AppDispatchers
 import ru.marslab.casespace.domain.repository.NasaRepository
 import ru.marslab.casespace.domain.util.getNasaFormatDate
+import ru.marslab.casespace.ui.mapper.toUi
 import ru.marslab.casespace.ui.util.ViewState
 import java.util.*
 import javax.inject.Inject
@@ -20,12 +21,12 @@ class EarthViewModel @Inject constructor(
     private val nasaRepository: NasaRepository,
     private val dispatchers: AppDispatchers
 ) : ViewModel() {
-    private var _earthAssetUrl: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Init)
-    val earthAssetUrl: StateFlow<ViewState>
-        get() = _earthAssetUrl
+    private var _earthImageUrlList: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Init)
+    val earthImageUrlList: StateFlow<ViewState>
+        get() = _earthImageUrlList
 
     fun getEarthAsset(location: Location, date: Date) {
-        _earthAssetUrl.value = ViewState.Loading
+        _earthImageUrlList.value = ViewState.Loading
         viewModelScope.launch(dispatchers.io) {
             try {
                 val earthAssets = nasaRepository.getEarthAssets(
@@ -33,12 +34,29 @@ class EarthViewModel @Inject constructor(
                     lat = location.latitude.toFloat(),
                     date = date.getNasaFormatDate()
                 )
-                _earthAssetUrl.emit(
+                _earthImageUrlList.emit(
                     earthAssets?.let { ViewState.Successful(it) }
                         ?: ViewState.LoadError(NetworkErrorException(nasaRepository.getRepoName()))
                 )
             } catch (e: Exception) {
-                _earthAssetUrl.emit(ViewState.LoadError(e))
+                _earthImageUrlList.emit(ViewState.LoadError(e))
+            }
+        }
+    }
+
+    fun getEarthImageList(collectionType: String) {
+        _earthImageUrlList.value = ViewState.Loading
+        viewModelScope.launch(dispatchers.io) {
+            try {
+                val epicImageList = nasaRepository.getEpicImageList(collectionType)
+                _earthImageUrlList.emit(
+                    epicImageList?.let { imageList ->
+                        ViewState.Successful(imageList.map { it.toUi() })
+                    }
+                        ?: ViewState.LoadError(NetworkErrorException(nasaRepository.getRepoName()))
+                )
+            } catch (e: Exception) {
+                _earthImageUrlList.emit(ViewState.LoadError(e))
             }
         }
     }

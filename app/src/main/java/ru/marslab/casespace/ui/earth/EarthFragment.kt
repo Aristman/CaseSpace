@@ -21,6 +21,7 @@ import ru.marslab.casespace.databinding.FragmentEarthBinding
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.util.handleError
 import ru.marslab.casespace.domain.util.showMessage
+import ru.marslab.casespace.ui.model.EarthUi
 import ru.marslab.casespace.ui.util.PermissionStatus
 import ru.marslab.casespace.ui.util.RequestPermission
 import ru.marslab.casespace.ui.util.ViewState
@@ -54,10 +55,11 @@ class EarthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        getLocation()
-        location?.let {
-            earthViewModel.getEarthAsset(it, Date())
-        }
+        earthViewModel.getEarthImageList(Constant.EPIC_COLLECTION_NATURAL)
+//        getLocation()
+//        location?.let {
+//            earthViewModel.getEarthAsset(it, Date())
+//        }
     }
 
     private fun initObservers() {
@@ -74,45 +76,49 @@ class EarthFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenStarted {
-            earthViewModel.earthAssetUrl.collect { viewResult ->
+            earthViewModel.earthImageUrlList.collect { viewResult ->
                 when (viewResult) {
                     is ViewState.Successful<*> -> {
-                        val url = viewResult.data as String
+                        val url = (viewResult.data as List<*>).map { it as EarthUi }
                         showMainContent()
-                        loadAsset(url)
+                        loadImage(url.first().url)
                     }
                     is ViewState.LoadError -> {
                         this@EarthFragment.handleError(viewResult.error) {
-                            location?.let { earthViewModel.getEarthAsset(it, Date()) }
+                            location?.let { earthViewModel.getEarthImageList(Constant.EPIC_COLLECTION_NATURAL) }
                         }
                     }
                     ViewState.Loading -> {
                         showLoading()
                     }
                     ViewState.Init -> {
-                        binding.root.visibility = View.INVISIBLE
-                        requestLocationPermission.getPermission()
+                        setInitStatusView()
                     }
                 }
             }
         }
     }
 
-    private fun loadAsset(url: String) {
-        binding.earthAssetPhoto.load(url)
+    private fun setInitStatusView() {
+        binding.root.visibility = View.INVISIBLE
+        requestLocationPermission.getPermission()
+    }
+
+    private fun loadImage(url: String) {
+        binding.earthPhoto.load(url)
     }
 
     private fun showMainContent() {
         binding.run {
             loadingIndicator.visibility = View.GONE
-            earthAssetPhoto.visibility = View.VISIBLE
+            earthPhoto.visibility = View.VISIBLE
         }
     }
 
     private fun showLoading() {
         binding.run {
             loadingIndicator.visibility = View.VISIBLE
-            earthAssetPhoto.visibility = View.GONE
+            earthPhoto.visibility = View.GONE
         }
     }
 
@@ -130,7 +136,6 @@ class EarthFragment : Fragment() {
                         Constant.GPS_DISTANCE
                     ) {
                         location = it
-                        earthViewModel.getEarthAsset(it, Date())
                     }
                 }
             } else {
