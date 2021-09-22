@@ -56,10 +56,6 @@ class EarthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         earthViewModel.getEarthImageList(Constant.EPIC_COLLECTION_NATURAL)
-//        getLocation()
-//        location?.let {
-//            earthViewModel.getEarthAsset(it, Date())
-//        }
     }
 
     private fun initObservers() {
