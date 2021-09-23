@@ -9,11 +9,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import ru.marslab.casespace.R
@@ -21,6 +23,7 @@ import ru.marslab.casespace.databinding.FragmentEarthBinding
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.util.handleError
 import ru.marslab.casespace.domain.util.showMessage
+import ru.marslab.casespace.ui.earth.adapter.EarthImageAdapter
 import ru.marslab.casespace.ui.model.EarthUi
 import ru.marslab.casespace.ui.util.PermissionStatus
 import ru.marslab.casespace.ui.util.RequestPermission
@@ -39,6 +42,8 @@ class EarthFragment : Fragment() {
         Manifest.permission.ACCESS_FINE_LOCATION
     )
 
+    private val earthImageAdapter: EarthImageAdapter by lazy { EarthImageAdapter(this) }
+
     private val earthViewModel by viewModels<EarthViewModel>()
 
     private var location: Location? = null
@@ -54,9 +59,23 @@ class EarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
+        initView()
         initObservers()
         loadContent()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun initView() {
+        setHasOptionsMenu(true)
+        binding.earthImagePager.adapter = earthImageAdapter
+        TabLayoutMediator(binding.earthImageTab, binding.earthImagePager) { tab, position ->
+            val tabView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.layout_earth_tab, null)
+            tabView.findViewById<ImageView>(R.id.earth_thumb_image).apply {
+                load(earthImageAdapter.getItemThumbUrl(position))
+            }
+            tab.customView = tabView
+        }.attach()
     }
 
     private fun initObservers() {
@@ -76,9 +95,9 @@ class EarthFragment : Fragment() {
             earthViewModel.earthImageList.collect { viewResult ->
                 when (viewResult) {
                     is ViewState.Successful<*> -> {
-                        val url = (viewResult.data as List<*>).map { it as EarthUi }
+                        val earthImagesList = (viewResult.data as List<*>).map { it as EarthUi }
                         showMainContent()
-                        loadImage(url.first().imageUrl)
+                        earthImageAdapter.setImageList(earthImagesList)
                     }
                     is ViewState.LoadError -> {
                         this@EarthFragment.handleError(viewResult.error) {
@@ -108,21 +127,18 @@ class EarthFragment : Fragment() {
         requestLocationPermission.getPermission()
     }
 
-    private fun loadImage(url: String) {
-        binding.earthPhoto.load(url)
-    }
 
     private fun showMainContent() {
         binding.run {
             loadingIndicator.visibility = View.GONE
-            earthPhoto.visibility = View.VISIBLE
+            earthImagePager.visibility = View.VISIBLE
         }
     }
 
     private fun showLoading() {
         binding.run {
             loadingIndicator.visibility = View.VISIBLE
-            earthPhoto.visibility = View.GONE
+            earthImagePager.visibility = View.GONE
         }
     }
 
