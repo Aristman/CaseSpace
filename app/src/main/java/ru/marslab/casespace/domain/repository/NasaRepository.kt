@@ -14,5 +14,5 @@ interface NasaRepository {
     suspend fun getEarthAssets(lon: Float, lat: Float, date: String, dim: Float? = 0.1f): String?
 
     @Throws(Exception::class)
-    suspend fun getEpicImageList(collectionType: String): List<EarthImage>?
+    suspend fun getEpicImageList(collectionType: String, imageType: String): List<EarthImage>?
 }

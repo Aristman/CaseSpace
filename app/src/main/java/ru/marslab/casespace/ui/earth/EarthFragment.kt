@@ -56,7 +56,7 @@ class EarthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         initObservers()
-        earthViewModel.getEarthImageList(Constant.EPIC_COLLECTION_NATURAL)
+        loadContent()
     }
 
     private fun initObservers() {
@@ -73,12 +73,12 @@ class EarthFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenStarted {
-            earthViewModel.earthImageUrlList.collect { viewResult ->
+            earthViewModel.earthImageList.collect { viewResult ->
                 when (viewResult) {
                     is ViewState.Successful<*> -> {
                         val url = (viewResult.data as List<*>).map { it as EarthUi }
                         showMainContent()
-                        loadImage(url.first().url)
+                        loadImage(url.first().imageUrl)
                     }
                     is ViewState.LoadError -> {
                         this@EarthFragment.handleError(viewResult.error) {
@@ -94,6 +94,13 @@ class EarthFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun loadContent() {
+        earthViewModel.run {
+            getEarthImageList(Constant.EPIC_COLLECTION_NATURAL)
+        }
+
     }
 
     private fun setInitStatusView() {

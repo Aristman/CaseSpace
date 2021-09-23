@@ -7,7 +7,9 @@ object Constant {
     private const val EPIC_ARCHIVE_PATH = "archive/"
     const val EPIC_COLLECTION_NATURAL = "natural"
     const val EPIC_COLLECTION_ENHANCED = "enhanced"
-    const val DEFAULT_IMAGE_TYPE = "png"
+    const val PNG_IMAGE_TYPE = "png"
+    const val JPG_IMAGE_TYPE = "jpg"
+    const val THUMBS_IMAGE_TYPE = "thumbs"
     private const val ERROR_LOAD_DATA = "Ошибка загрузки данных: %s"
 
     const val NO_INTERNET_CONNECTION = "Нет соединения с интернетом. Проверьте настройки."

@@ -40,12 +40,15 @@ class NasaRepositoryImpl(
         return checkResponse(earthAsset, REPO_NAME).body()?.url
     }
 
-    override suspend fun getEpicImageList(collectionType: String): List<EarthImage>? {
+    override suspend fun getEpicImageList(
+        collectionType: String,
+        imageType: String
+    ): List<EarthImage>? {
         val epicImages = nasaApi.getEpicImages(
             url = Constant.getEpicBaseApiPath() + collectionType,
         )
         return checkResponse(epicImages, REPO_NAME).body()
-            ?.map { it.toDomain(collectionType, Constant.DEFAULT_IMAGE_TYPE) }
+            ?.map { it.toDomain(collectionType, imageType) }
     }
 }
 

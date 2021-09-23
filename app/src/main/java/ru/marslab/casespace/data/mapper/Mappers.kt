@@ -20,11 +20,13 @@ fun ApodNW.toDomain(): PictureOfDay =
         description = explanation
     )
 
-fun EpicNW.toDomain(collectionType: String, imageType: String): EarthImage =
-    EarthImage(
-        url = "${Constant.getEpicImageArchivePath()}$collectionType/${
+fun EpicNW.toDomain(collectionType: String, imageType: String): EarthImage {
+    val baseImageUrl = "${Constant.getEpicImageArchivePath()}$collectionType/" +
             this.date.split(' ').first().split('-').joinToString("/")
-        }/$imageType/$image.$imageType",
+    return EarthImage(
+        imageUrl = "$baseImageUrl/$imageType/$image.$imageType",
+        thumbUrl = "$baseImageUrl/${Constant.THUMBS_IMAGE_TYPE}/$image.${Constant.JPG_IMAGE_TYPE}",
         description = caption,
         date = date
     )
+}
