@@ -20,7 +20,6 @@ import ru.marslab.casespace.domain.model.MediaType
 import ru.marslab.casespace.domain.model.PictureOfDay
 import ru.marslab.casespace.domain.model.PostDay
 import ru.marslab.casespace.domain.util.handleError
-import ru.marslab.casespace.domain.util.showMessage
 import ru.marslab.casespace.ui.util.ViewState
 
 @AndroidEntryPoint
@@ -48,24 +47,25 @@ class ApodContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         initObservers()
         initView()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_toolbar_main, menu)
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.menu_toolbar_main, menu)
+//    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.item_search -> {
-                requireView().showMessage(R.string.search)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.item_wiki -> {
+//                requireView().showMessage(R.string.search)
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 
 
     @SuppressLint("SetJavaScriptEnabled")

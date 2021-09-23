@@ -3,6 +3,7 @@ package ru.marslab.casespace.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -61,6 +62,11 @@ class MainActivity : AppCompatActivity() {
         binding.activityMainContent.wikiSearch.visibility = visibility
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     private fun initListeners() {
         binding.activityMainContent.wikiSearch.setEndIconOnClickListener {
             val searchText = binding.activityMainContent.wikiSearchText.text.toString()
@@ -69,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

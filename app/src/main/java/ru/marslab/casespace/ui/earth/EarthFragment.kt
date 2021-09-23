@@ -54,6 +54,7 @@ class EarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         initObservers()
         earthViewModel.getEarthImageList(Constant.EPIC_COLLECTION_NATURAL)
     }
