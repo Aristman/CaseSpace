@@ -57,8 +57,7 @@ class NasaRepositoryImpl(
     @Throws(Exception::class)
     override suspend fun getMarsPhotos(date: String): List<MarsImage>? {
         val marsRoverPhotos = nasaApi.getMarsRoverPhotos(storage.getNasaApikey(), date)
-        return checkResponse(marsRoverPhotos, REPO_NAME).body()
-            ?.map { it.toDomain() }
+        return checkResponse(marsRoverPhotos, REPO_NAME).body()?.toDomain()
     }
 
     @Throws(Exception::class)

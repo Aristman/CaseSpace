@@ -43,4 +43,5 @@
     <color name="white__black">#FFFFFFFF</color>
     <color name="purple_500__purple_200">#FF6200EE</color>
     <color name="lightBlue__darkBlue">#A7FFFF</color>
+    <color name="loading_shadow">#80FFFFFF</color>
 </resources>

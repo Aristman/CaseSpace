@@ -27,7 +27,7 @@ interface NasaApi {
     suspend fun getMarsRoverPhotos(
         @Query("api_key") apiKey: String,
         @Query("earth_date") earthDate: String
-    ): Response<List<MarsPhotoNW>>
+    ): Response<MarsPhotoNW>
 
     @GET("mars-photos/api/v1/manifests/Curiosity")
     suspend fun getMarsRoverInfo(

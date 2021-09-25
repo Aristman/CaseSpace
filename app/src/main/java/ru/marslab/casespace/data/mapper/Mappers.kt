@@ -31,24 +31,26 @@ fun EpicNW.toDomain(collectionType: String, imageType: String): EarthImage {
     )
 }
 
-fun MarsPhotoNW.toDomain(): MarsImage =
-    MarsImage(
-        id = id,
-        url = imgSrc,
-        date = earthDate,
-        sol = sol,
-        camera = camera.fullName,
-        rover = rover.toDomain()
-    )
+fun MarsPhotoNW.toDomain(): List<MarsImage> =
+    this.photos.map {
+        MarsImage(
+            id = it.id,
+            url = it.imgSrc,
+            date = it.earthDate,
+            sol = it.sol,
+            camera = it.camera.fullName,
+            rover = it.rover.toDomain()
+        )
+    }
 
 
-fun MarsPhotoNW.Rover.toDomain(): MarsRover =
+fun MarsPhotoNW.Photo.Rover.toDomain(): MarsRover =
     MarsRover(
         id = id,
         landingDate = landingDate,
         launchDate = launchDate,
         name = name,
-        status = status
+        status = status,
     )
 
 fun MarsRoverNW.toDomain(): MarsRover =
@@ -59,6 +61,7 @@ fun MarsRoverNW.toDomain(): MarsRover =
             name = name,
             status = status,
             maxDate = maxDate,
-            maxSol = maxSol
+            maxSol = maxSol,
+            totalPhotos = totalPhotos
         )
     }

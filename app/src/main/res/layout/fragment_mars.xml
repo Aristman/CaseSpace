@@ -6,18 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".ui.mars.MarsFragment">
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-        android:id="@+id/mars_collapsing_toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mars_appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="@dimen/mars_appbar_height">
 
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/mars_collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/mars_rover"
+                android:scaleType="centerCrop"
+                android:src="@drawable/curiosity" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mars_appbar_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:id="@+id/rover_name_title"
+                    style="@style/MarRoverTextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mars_rover_name_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/rover_name_text"
+                    style="@style/MarRoverText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rover_name_title" />
+
+                <TextView
+                    android:id="@+id/landing_title"
+                    style="@style/MarRoverTextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mars_rover_landing_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rover_name_text" />
+
+                <TextView
+                    android:id="@+id/landing_text"
+                    style="@style/MarRoverText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/landing_title" />
+
+                <TextView
+                    android:id="@+id/photos_count_title"
+                    style="@style/MarRoverTextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mars_rover_photos_title"
+                    app:layout_constraintBottom_toTopOf="@id/photos_count_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/photos_count_text"
+                    style="@style/MarRoverText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_mars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/default_padding"
         android:contentDescription="@string/mars"
-        app:layout_anchor="@id/mars_collapsing_toolbar" />
+        app:layout_anchor="@id/mars_appbar"
+        app:layout_anchorGravity="bottom|end" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_gravity="center_horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_mars_photos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_mars_photo"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

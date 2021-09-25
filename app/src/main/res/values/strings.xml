@@ -30,4 +30,8 @@
     <string name="locate_request_permission_title">Доступ к локации</string>
     <string name="locate_request_permission_text">Для получения данных по фото земли необходимо предоставить разрешение на определение вашего местоположения.</string>
     <string name="no_gps">Не включен GPS!</string>
+    <string name="mars_rover">Марсоход</string>
+    <string name="mars_rover_name_title">Название марсохода</string>
+    <string name="mars_rover_landing_title">Дата посадки</string>
+    <string name="mars_rover_photos_title">Снято фото</string>
 </resources>

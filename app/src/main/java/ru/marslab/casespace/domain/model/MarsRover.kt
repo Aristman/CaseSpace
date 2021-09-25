@@ -7,5 +7,6 @@ data class MarsRover(
     val name: String,
     val status: String,
     val maxDate: String? = null,
-    val maxSol: Int? = null
+    val maxSol: Int? = null,
+    val totalPhotos: Int? = null
 )
