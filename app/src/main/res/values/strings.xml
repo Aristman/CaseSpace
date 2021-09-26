@@ -16,4 +16,10 @@
     <string name="fragment_two">Второй фрагмент</string>
     <string name="fragment_three">Третий фрагмент</string>
     <string name="ok">OK</string>
+    <string name="nasa_time_zone">Etc/GMT+4</string>
+    <string name="themes_choice_title">Выбор темы приложения</string>
+    <string name="mars_theme">Тема \"Марс\"</string>
+    <string name="default_theme">Тема по-умолчанию</string>
+    <string name="emerald_theme">Тема \"Изумруд\"</string>
+    <string name="apply">Применить</string>
 </resources>

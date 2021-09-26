@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
+    <!--    Main palette-->
     <color name="purple_500">#FF6200EE</color>
+    <color name="purple_200">#FFBB86FC</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_blue">#A7FFFF</color>
+
+    <!--    Emerald Theme-->
+
+    <color name="emerald_700">#FF64DD17</color>
+    <color name="emerald_200">#FFB2FF59</color>
+    <color name="green_700">#FF388E3C</color>
+    <color name="green_200">#FFA5D6A7</color>
+    <color name="lime_900">#FF827717</color>
+    <color name="lime_500">#FFCDDC39</color>
+    <color name="lime_200">#FFE6EE9C</color>
+
+    <!--    Mars Theme Palette-->
+    <color name="red_500">#FFF44336</color>
+    <color name="red_300">#FFE57373</color>
+    <color name="red_900">#FFB71C1C</color>
+    <color name="red_dark_500">#FF750D01</color>
+    <color name="red_dark_300">#FF950C00</color>
+    <color name="red_dark_900">#FF660F01</color>
+    <color name="orange_900">#FFE65100</color>
+    <color name="orange_500">#FFFF9800</color>
+    <color name="orange_200">#FFFFCC80</color>
+    <!--    Day/Night colors-->
+    <color name="emerald_700__green_700">#FF64DD17</color>
+    <color name="emerald_200__green_200">#FFB2FF59</color>
+    <color name="lime_900__lime_500">#FF827717</color>
+
+    <color name="red_500__red_dark_500">#FFF44336</color>
+    <color name="red_300__red_dark_300">#FFE57373</color>
+    <color name="red_900__red_dark_900">#FFB71C1C</color>
+    <color name="orange_900__orange_500">#FFE65100</color>
+
+    <color name="teal_700__teal_200">#FF018786</color>
+    <color name="white__black">#FFFFFFFF</color>
+    <color name="purple_500__purple_200">#FF6200EE</color>
+    <color name="lightBlue__darkBlue">#A7FFFF</color>
 </resources>

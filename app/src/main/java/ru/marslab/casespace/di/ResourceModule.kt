@@ -1,5 +1,8 @@
 package ru.marslab.casespace.di
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +23,10 @@ object ResourceModule {
             get() = Dispatchers.IO
         override val main: CoroutineDispatcher
             get() = Dispatchers.Main
-
     }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreference(app: Application): SharedPreferences =
+        app.getSharedPreferences("local_settings", Context.MODE_PRIVATE)
 }

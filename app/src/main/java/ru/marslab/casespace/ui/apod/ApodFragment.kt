@@ -3,9 +3,7 @@ package ru.marslab.casespace.ui.apod
 import android.accounts.NetworkErrorException
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,13 +22,15 @@ import ru.marslab.casespace.domain.model.Picture
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.domain.util.showMessage
-import ru.marslab.casespace.ui.BottomNavDrawerFragment
 import ru.marslab.casespace.ui.util.ViewState
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.time.LocalDate
-import java.time.LocalTime
 import java.time.ZoneId
 import java.util.*
+
+private const val YESTERDAY = 1L
+private const val BEFORE_YESTERDAY = 2L
 
 @AndroidEntryPoint
 class ApodFragment : Fragment() {
@@ -38,7 +38,11 @@ class ApodFragment : Fragment() {
     private val binding: FragmentApodBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private val bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout> by lazy {
+        BottomSheetBehavior.from(
+            binding.apodBottomSheet.root
+        )
+    }
 
     private val apodViewModel by viewModels<ApodViewModel>()
 
@@ -59,7 +63,7 @@ class ApodFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
+        inflater.inflate(R.menu.menu_bottom_bar_apod, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -68,20 +72,7 @@ class ApodFragment : Fragment() {
                 requireView().showMessage(R.string.search)
                 true
             }
-            R.id.item_settings -> {
-                requireView().showMessage(R.string.settings)
-                true
-            }
-            android.R.id.home -> {
-                BottomNavDrawerFragment().show(
-                    parentFragmentManager,
-                    BottomNavDrawerFragment.FRAGMENT_TAG
-                )
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -113,11 +104,12 @@ class ApodFragment : Fragment() {
 
     private fun getPostDay(minusDay: Long): String =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            LocalDate.now(ZoneId.of("Etc/GMT+4")).minusDays(minusDay).toString()
+            LocalDate.now(ZoneId.of(getString(R.string.nasa_time_zone))).minusDays(minusDay)
+                .toString()
         } else {
             Date(
                 Calendar.getInstance().apply {
-                    timeZone = TimeZone.getTimeZone("Etc/GMT+4")
+                    timeZone = TimeZone.getTimeZone(getString(R.string.nasa_time_zone))
                     time = Date()
                     set(Calendar.DAY_OF_MONTH, get(Calendar.DAY_OF_MONTH) - minusDay.toInt())
                 }.time.time
@@ -126,9 +118,8 @@ class ApodFragment : Fragment() {
 
 
     private fun initView() {
-        apodViewModel.getImageOfDay()
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.apodBottomSheet.root)
         setHasOptionsMenu(true)
+        apodViewModel.getImageOfDay()
     }
 
     private fun initObservers() {
@@ -167,7 +158,8 @@ class ApodFragment : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).show()
             }
-            is UnknownHostException -> {
+            is UnknownHostException,
+            is SocketTimeoutException -> {
                 Snackbar.make(
                     requireView(),
                     Constant.NO_INTERNET_CONNECTION,
@@ -216,6 +208,4 @@ class ApodFragment : Fragment() {
     }
 }
 
-private const val YESTERDAY = 1L
-private const val BEFORE_YESTERDAY = 2L
 

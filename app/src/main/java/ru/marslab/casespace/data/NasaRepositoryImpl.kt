@@ -29,7 +29,8 @@ class NasaRepositoryImpl(
                 return pictureOfDay.body()?.toDomain()
             }
             pictureOfDay.raw().code == Constant.HTTP_ERROR_CODE -> {
-                val response = Gson().fromJson(pictureOfDay.errorBody()?.string(), ErrorNW::class.java)
+                val response =
+                    Gson().fromJson(pictureOfDay.errorBody()?.string(), ErrorNW::class.java)
                 throw NetworkErrorException(Constant.getLoadErrorString(response.msg))
             }
             else -> throw NetworkErrorException(Constant.getLoadErrorString(REPO_NAME))
