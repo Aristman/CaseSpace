@@ -15,7 +15,6 @@
     <string name="fragment_two">Второй фрагмент</string>
     <string name="fragment_three">Третий фрагмент</string>
     <string name="ok">OK</string>
-    <string name="nasa_time_zone">Etc/GMT+4</string>
     <string name="themes_choice_title">Выбор темы приложения</string>
     <string name="mars_theme">Тема \"Марс\"</string>
     <string name="default_theme">Тема по-умолчанию</string>
@@ -23,4 +22,16 @@
     <string name="apply">Применить</string>
     <string name="earth">Земля</string>
     <string name="mars">Марс</string>
+    <string name="path_video_preview">https://img.youtube.com/vi/%s/0.jpg</string>
+    <string name="picture_of_day">Картинка дня</string>
+    <string name="cancel">Отмена</string>
+    <string name="close_app_permission_title">Не получены требуемые разрешения!</string>
+    <string name="close_app_permission_message">Для нормальной работы приложения тебуется выдача следующих разрешений:\n 1. Определение локации.\n</string>
+    <string name="locate_request_permission_title">Доступ к локации</string>
+    <string name="locate_request_permission_text">Для получения данных по фото земли необходимо предоставить разрешение на определение вашего местоположения.</string>
+    <string name="no_gps">Не включен GPS!</string>
+    <string name="mars_rover">Марсоход</string>
+    <string name="mars_rover_name_title">Название марсохода</string>
+    <string name="mars_rover_landing_title">Дата посадки</string>
+    <string name="mars_rover_photos_title">Снято фото</string>
 </resources>

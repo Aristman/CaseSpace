@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_padding">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        app:cardCornerRadius="@dimen/photo_card_conner_radius"
+        app:cardElevation="@dimen/default_elevation">
+
+
+        <ImageView
+            android:id="@+id/mars_photo"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="@dimen/mars_photo_height"
+            android:contentDescription="@string/mars"
+            tools:src="@drawable/curiosity" />
+
+        <TextView
+            android:id="@+id/mars_photo_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="?colorAccent"
+            tools:text="Название камеры" />
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

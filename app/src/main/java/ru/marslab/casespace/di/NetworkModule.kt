@@ -27,7 +27,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(Constant.getBaseApiPath())
+            .baseUrl(Constant.getNasaBaseApiPath())
             .addConverterFactory(
                 GsonConverterFactory.create(GsonBuilder().setLenient().create())
             )

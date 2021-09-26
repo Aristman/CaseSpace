@@ -1,5 +1,9 @@
 package ru.marslab.casespace.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class PictureOfDay(
     val date: String,
     val title: String,
@@ -7,4 +11,4 @@ data class PictureOfDay(
     val hdUrl: String?,
     val type: MediaType,
     val description: String
-)
+) : Parcelable

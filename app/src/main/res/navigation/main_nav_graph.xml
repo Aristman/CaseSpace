@@ -6,17 +6,27 @@
     app:startDestination="@id/apodFragment">
 
     <fragment
-        android:id="@+id/apodFragment"
-        android:name="ru.marslab.casespace.ui.apod.ApodFragment"
-        android:label="@string/image_of_day"
-        tools:layout="@layout/fragment_apod" />
-    <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.marslab.casespace.ui.settings.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <action
         android:id="@+id/show_settingsFragment"
         app:destination="@id/settingsFragment"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/apodFragment"
+        android:name="ru.marslab.casespace.ui.apod.ApodFragment"
+        android:label="@string/picture_of_day"
+        tools:layout="@layout/fragment_apod" />
+    <fragment
+        android:id="@+id/earthFragment"
+        android:name="ru.marslab.casespace.ui.earth.EarthFragment"
+        android:label="@string/earth"
+        tools:layout="@layout/fragment_earth" />
+    <fragment
+        android:id="@+id/marsFragment"
+        android:name="ru.marslab.casespace.ui.mars.MarsFragment"
+        android:label="@string/mars"
+        tools:layout="@layout/fragment_mars" />
 </navigation>

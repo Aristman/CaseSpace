@@ -2,11 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_earth"
+        android:id="@+id/apodFragment"
+        android:icon="@drawable/ic_baseline_image_24"
+        android:title="@string/picture_of_day" />
+
+    <item
+        android:id="@+id/earthFragment"
         android:icon="@drawable/earth"
         android:title="@string/earth" />
     <item
-        android:id="@+id/item_mars"
+        android:id="@+id/marsFragment"
         android:icon="@drawable/mars"
         android:title="@string/mars" />
 </menu>
