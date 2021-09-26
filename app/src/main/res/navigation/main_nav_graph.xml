@@ -28,5 +28,18 @@
         android:id="@+id/marsFragment"
         android:name="ru.marslab.casespace.ui.mars.MarsFragment"
         android:label="@string/mars"
-        tools:layout="@layout/fragment_mars" />
+        tools:layout="@layout/fragment_mars">
+        <action
+            android:id="@+id/action_marsFragment_to_marsImageFragment"
+            app:destination="@id/marsImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/marsImageFragment"
+        android:name="ru.marslab.casespace.ui.mars.MarsImageFragment"
+        android:label="fragment_mars_image"
+        tools:layout="@layout/fragment_mars_image">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

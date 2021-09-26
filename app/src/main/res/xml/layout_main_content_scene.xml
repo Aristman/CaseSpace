@@ -2,7 +2,7 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ConstraintSet android:id="@+id/earth_image_start">
+    <ConstraintSet android:id="@+id/main_anim_start">
         <Constraint
             android:id="@+id/main_appbar_layout"
             android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             app:layout_constraintStart_toEndOf="parent" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/earth_image_end">
+    <ConstraintSet android:id="@+id/main_anim_end">
         <Constraint
             android:id="@id/main_appbar_layout"
             android:layout_width="0dp"
@@ -34,13 +34,13 @@
     </ConstraintSet>
 
     <Transition
-        app:constraintSetEnd="@id/earth_image_end"
-        app:constraintSetStart="@+id/earth_image_start">
+        app:constraintSetEnd="@id/main_anim_end"
+        app:constraintSetStart="@+id/main_anim_start">
         <OnClick app:targetId="@id/item_wiki" />
     </Transition>
     <Transition
-        app:constraintSetEnd="@+id/earth_image_start"
-        app:constraintSetStart="@+id/earth_image_end">
+        app:constraintSetEnd="@+id/main_anim_start"
+        app:constraintSetStart="@+id/main_anim_end">
         <OnSwipe
             app:dragDirection="dragEnd"
             app:touchAnchorSide="end" />
