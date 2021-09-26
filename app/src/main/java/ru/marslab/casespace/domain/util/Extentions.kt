@@ -7,8 +7,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import ru.marslab.casespace.R
 import ru.marslab.casespace.domain.repository.Constant
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,8 +42,7 @@ fun Fragment.handleError(error: Throwable, repeatAction: () -> Unit) {
                 Snackbar.LENGTH_LONG
             ).show()
         }
-        is UnknownHostException,
-        is SocketTimeoutException -> {
+        is IOException -> {
             Snackbar.make(
                 requireView(),
                 Constant.NO_INTERNET_CONNECTION,

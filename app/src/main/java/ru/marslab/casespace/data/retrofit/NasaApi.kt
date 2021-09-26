@@ -4,9 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
-import ru.marslab.casespace.data.model.ApodNW
-import ru.marslab.casespace.data.model.EarthNW
-import ru.marslab.casespace.data.model.EpicNW
+import ru.marslab.casespace.data.model.*
 
 interface NasaApi {
 
@@ -25,6 +23,16 @@ interface NasaApi {
         @Query("dim") dim: Float? = null
     ): Response<EarthNW>
 
+    @GET("mars-photos/api/v1/rovers/curiosity/photos")
+    suspend fun getMarsRoverPhotos(
+        @Query("api_key") apiKey: String,
+        @Query("earth_date") earthDate: String
+    ): Response<MarsPhotoNW>
+
+    @GET("mars-photos/api/v1/manifests/Curiosity")
+    suspend fun getMarsRoverInfo(
+        @Query("api_key") apiKey: String
+    ): Response<MarsRoverNW>
 
     @GET
     suspend fun getEpicImages(

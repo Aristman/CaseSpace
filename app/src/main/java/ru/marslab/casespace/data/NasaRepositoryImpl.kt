@@ -7,6 +7,8 @@ import ru.marslab.casespace.data.mapper.toDomain
 import ru.marslab.casespace.data.model.ErrorNW
 import ru.marslab.casespace.data.retrofit.NasaApi
 import ru.marslab.casespace.domain.model.EarthImage
+import ru.marslab.casespace.domain.model.MarsImage
+import ru.marslab.casespace.domain.model.MarsRover
 import ru.marslab.casespace.domain.model.PictureOfDay
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.repository.NasaRepository
@@ -40,12 +42,28 @@ class NasaRepositoryImpl(
         return checkResponse(earthAsset, REPO_NAME).body()?.url
     }
 
-    override suspend fun getEpicImageList(collectionType: String): List<EarthImage>? {
+    @Throws(Exception::class)
+    override suspend fun getEpicImageList(
+        collectionType: String,
+        imageType: String
+    ): List<EarthImage>? {
         val epicImages = nasaApi.getEpicImages(
             url = Constant.getEpicBaseApiPath() + collectionType,
         )
         return checkResponse(epicImages, REPO_NAME).body()
-            ?.map { it.toDomain(collectionType, Constant.DEFAULT_IMAGE_TYPE) }
+            ?.map { it.toDomain(collectionType, imageType) }
+    }
+
+    @Throws(Exception::class)
+    override suspend fun getMarsPhotos(date: String): List<MarsImage>? {
+        val marsRoverPhotos = nasaApi.getMarsRoverPhotos(storage.getNasaApikey(), date)
+        return checkResponse(marsRoverPhotos, REPO_NAME).body()?.toDomain()
+    }
+
+    @Throws(Exception::class)
+    override suspend fun getMarsRoverInfo(): MarsRover? {
+        val marsRoverInfo = nasaApi.getMarsRoverInfo(storage.getNasaApikey())
+        return checkResponse(marsRoverInfo, REPO_NAME).body()?.toDomain()
     }
 }
 

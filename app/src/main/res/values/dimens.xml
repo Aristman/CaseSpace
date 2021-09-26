@@ -5,4 +5,9 @@
     <dimen name="content_bottom_margin">64dp</dimen>
     <dimen name="default_view_padding">16dp</dimen>
     <dimen name="video_player_height">400dp</dimen>
+    <dimen name="earth_thumb_size">48dp</dimen>
+    <dimen name="mars_appbar_height">280dp</dimen>
+    <dimen name="default_elevation">4dp</dimen>
+    <dimen name="mars_photo_height">288dp</dimen>
+    <dimen name="photo_card_conner_radius">24dp</dimen>
 </resources>
