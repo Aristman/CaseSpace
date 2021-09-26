@@ -37,7 +37,12 @@ class MarsPhotoViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: MarsPhotoUi) {
-        binding.marsPhoto.load(item.url)
+        binding.marsPhoto.load(item.url) {
+            target {
+                binding.root.transitionToEnd()
+                binding.marsPhoto.setImageDrawable(it)
+            }
+        }
         binding.marsPhotoCamera.text = item.camera
         binding.marsPhoto.setOnClickListener {
             clickCallback(item)

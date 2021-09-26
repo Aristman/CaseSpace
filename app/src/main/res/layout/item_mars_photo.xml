@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/default_padding">
+    android:layout_margin="@dimen/default_padding"
+    app:layoutDescription="@xml/item_mars_photo_scene">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:id="@+id/mars_photo_card"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="?selectableItemBackground"
         app:cardCornerRadius="@dimen/photo_card_conner_radius"
         app:cardElevation="@dimen/default_elevation">
 
@@ -17,9 +18,10 @@
         <ImageView
             android:id="@+id/mars_photo"
             android:layout_width="match_parent"
-            android:scaleType="centerCrop"
             android:layout_height="@dimen/mars_photo_height"
+            android:background="?selectableItemBackground"
             android:contentDescription="@string/mars"
+            android:scaleType="centerCrop"
             tools:src="@drawable/curiosity" />
 
         <TextView
@@ -27,9 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="?colorAccent"
             tools:text="Название камеры" />
     </androidx.cardview.widget.CardView>
 
-</FrameLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
