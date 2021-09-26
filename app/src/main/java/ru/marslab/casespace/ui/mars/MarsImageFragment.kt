@@ -29,6 +29,23 @@ class MarsImageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.marsBigImage.setOnClickListener {
+            binding.root.run {
+                if (targetPosition == 0f) {
+                    transitionToEnd()
+                } else {
+                    transitionToStart()
+                }
+            }
+        }
+    }
+
+    private fun initView() {
         binding.marsBigImage.load(args.imageUrl)
     }
 
