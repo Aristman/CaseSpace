@@ -27,6 +27,7 @@ class MarsFragment : Fragment() {
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
 
     private val marsViewModel by viewModels<MarsViewModel>()
+    private var isExpandAppbar = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +41,10 @@ class MarsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        marsPhotoAdapter?.let { binding.rvMarsPhotos.adapter = it }
+        marsPhotoAdapter?.let {
+            binding.rvMarsPhotos.adapter = it
+            binding.marsAppbar.setExpanded(isExpandAppbar)
+        }
     }
 
     private fun initObservers() {
@@ -110,6 +114,7 @@ class MarsFragment : Fragment() {
 
     private fun initRV() {
         marsPhotoAdapter = MarsPhotoAdapter {
+            isExpandAppbar = !binding.marsAppbar.isLifted
             showMarsBigImage(it.url)
         }
         binding.rvMarsPhotos.adapter = marsPhotoAdapter
@@ -122,9 +127,9 @@ class MarsFragment : Fragment() {
 
     private fun updateAppbarInfo(roverInfo: RoverUi) {
         binding.run {
-            roverNameText.text = roverInfo.name
             landingText.text = roverInfo.landing
             photosCountText.text = roverInfo.photosCount.toString()
+            marsCollapsing.title = roverInfo.name
         }
     }
 
