@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentNotesBinding
+import ru.marslab.casespace.ui.custom.BaseFragment
 
-class NotesFragment : Fragment() {
+class NotesFragment : BaseFragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding: FragmentNotesBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
@@ -20,6 +20,11 @@ class NotesFragment : Fragment() {
     ): View? {
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         return _binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewNavigate(wikiSearch = false)
     }
 
     override fun onDestroyView() {

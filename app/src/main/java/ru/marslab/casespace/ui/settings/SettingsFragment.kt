@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentSettingsBinding
 import ru.marslab.casespace.ui.MainViewModel
+import ru.marslab.casespace.ui.custom.BaseFragment
 
 @AndroidEntryPoint
-class SettingsFragment : Fragment() {
+class SettingsFragment : BaseFragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding: FragmentSettingsBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
@@ -33,6 +33,7 @@ class SettingsFragment : Fragment() {
         initObservers()
         initListeners()
         initView()
+        initViewNavigate(toolbar = false)
     }
 
     private fun initListeners() {

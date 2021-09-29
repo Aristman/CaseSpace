@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -15,9 +14,10 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.ActivityMainBinding
+import ru.marslab.casespace.domain.util.visible
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ViewElementsVisibility {
 
     private val navController: NavController by lazy {
         (supportFragmentManager
@@ -43,29 +43,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mainToolbar)
         mainToolbar.setupWithNavController(
             navController,
-            AppBarConfiguration(navController.graph)
+            AppBarConfiguration(navController.graph, binding.root)
         )
+        binding.mainNavView.setupWithNavController(navController)
         binding.activityMainContent.mainBottomNavigation.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when (destination.id) {
-                R.id.settingsFragment -> {
-                    setWikiVisibility(View.GONE)
-                    bottomNavigationVisibility(true)
-                }
-                R.id.notesFragment -> {
-                    setWikiVisibility(View.GONE)
-                    bottomNavigationVisibility(false)
-                }
-                else -> {
-                    setWikiVisibility(View.VISIBLE)
-                    bottomNavigationVisibility(true)
-                }
-            }
-        }
-    }
-
-    private fun setWikiVisibility(visibility: Int) {
-        binding.activityMainContent.wikiSearch.visibility = visibility
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -93,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toolbarVisibility(status: Boolean) {
+    override fun toolbarVisibility(status: Boolean) {
         supportActionBar?.run {
             if (status) {
                 show()
@@ -103,13 +84,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun bottomNavigationVisibility(status: Boolean) {
-        binding.activityMainContent.mainBottomNavigation.visibility =
-            if (status) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+    override fun wikiSearchVisibility(status: Boolean) {
+        binding.activityMainContent.mainToolbar.menu.getItem(1).setVisible(!status)
+        binding.activityMainContent.wikiSearchText.visible(status)
     }
 
 }

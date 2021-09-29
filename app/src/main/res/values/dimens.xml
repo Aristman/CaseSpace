@@ -10,4 +10,7 @@
     <dimen name="default_elevation">4dp</dimen>
     <dimen name="mars_photo_height">288dp</dimen>
     <dimen name="photo_card_conner_radius">24dp</dimen>
+    <dimen name="note_conner_radius">20dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="note_list_height">160dp</dimen>
 </resources>
