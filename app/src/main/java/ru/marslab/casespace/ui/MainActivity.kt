@@ -49,16 +49,22 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.settingsFragment -> {
-                    setNavVisibility(View.GONE)
+                    setWikiVisibility(View.GONE)
+                    bottomNavigationVisibility(true)
+                }
+                R.id.notesFragment -> {
+                    setWikiVisibility(View.GONE)
+                    bottomNavigationVisibility(false)
                 }
                 else -> {
-                    setNavVisibility(View.VISIBLE)
+                    setWikiVisibility(View.VISIBLE)
+                    bottomNavigationVisibility(true)
                 }
             }
         }
     }
 
-    private fun setNavVisibility(visibility: Int) {
+    private fun setWikiVisibility(visibility: Int) {
         binding.activityMainContent.wikiSearch.visibility = visibility
     }
 
@@ -85,6 +91,25 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun toolbarVisibility(status: Boolean) {
+        supportActionBar?.run {
+            if (status) {
+                show()
+            } else {
+                hide()
+            }
+        }
+    }
+
+    private fun bottomNavigationVisibility(status: Boolean) {
+        binding.activityMainContent.mainBottomNavigation.visibility =
+            if (status) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
     }
 
 }

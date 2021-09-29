@@ -42,4 +42,9 @@
             android:name="imageUrl"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="ru.marslab.casespace.ui.notes.NotesFragment"
+        android:label="@string/notes"
+        tools:layout="@layout/fragment_notes" />
 </navigation>

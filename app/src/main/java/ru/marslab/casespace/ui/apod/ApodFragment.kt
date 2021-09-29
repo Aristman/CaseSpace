@@ -34,15 +34,15 @@ class ApodFragment : Fragment() {
         binding.vpPictures.adapter = apodContentAdapter
         TabLayoutMediator(binding.tabPictures, binding.vpPictures) { tab, position ->
             tab.text = when (position) {
-                0 -> getString(R.string.before_yesterday)
+                2 -> getString(R.string.before_yesterday)
                 1 -> getString(R.string.yesterday)
-                2 -> getString(R.string.today)
+                0 -> getString(R.string.today)
                 else -> getString(R.string.today)
             }
         }.attach()
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             getString(R.string.picture_of_day)
-        binding.vpPictures.currentItem = 2
+        binding.vpPictures.currentItem = 0
     }
 
     override fun onDestroyView() {
