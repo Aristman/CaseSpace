@@ -25,6 +25,15 @@ class NotesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewNavigate(wikiSearch = false)
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.fabNotes.setOnClickListener {
+            it.animate()
+                .rotation(-180f)
+                .start()
+        }
     }
 
     override fun onDestroyView() {

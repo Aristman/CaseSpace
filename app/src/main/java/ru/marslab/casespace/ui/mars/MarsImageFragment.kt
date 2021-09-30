@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentMarsImageBinding
+import ru.marslab.casespace.ui.custom.BaseFragment
 
-class MarsImageFragment : Fragment() {
+class MarsImageFragment : BaseFragment() {
 
     private var _binding: FragmentMarsImageBinding? = null
     private val binding: FragmentMarsImageBinding
@@ -47,6 +47,7 @@ class MarsImageFragment : Fragment() {
 
     private fun initView() {
         binding.marsBigImage.load(args.imageUrl)
+        setToolbarTitle(args.cameraName)
     }
 
     override fun onDestroyView() {

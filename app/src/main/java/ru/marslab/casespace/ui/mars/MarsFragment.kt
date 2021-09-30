@@ -115,13 +115,14 @@ class MarsFragment : BaseFragment() {
     private fun initRV() {
         marsPhotoAdapter = MarsPhotoAdapter {
             isExpandAppbar = !binding.marsAppbar.isLifted
-            showMarsBigImage(it.url)
+            showMarsBigImage(it)
         }
         binding.rvMarsPhotos.adapter = marsPhotoAdapter
     }
 
-    private fun showMarsBigImage(url: String) {
-        val action = MarsFragmentDirections.actionMarsFragmentToMarsImageFragment(url)
+    private fun showMarsBigImage(item: MarsPhotoUi) {
+        val action =
+            MarsFragmentDirections.actionMarsFragmentToMarsImageFragment(item.url, item.camera)
         findNavController().navigate(action)
     }
 

@@ -32,4 +32,5 @@
     <string name="mars_rover_landing_title">Дата посадки</string>
     <string name="mars_rover_photos_title">Снято фото</string>
     <string name="notes">Заметки</string>
+    <string name="add_note">Добавить заметку</string>
 </resources>

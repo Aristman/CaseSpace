@@ -3,6 +3,7 @@
     <style name="Theme.CaseSpace" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500__purple_200</item>
+        <item name="colorPrimarySurface">@color/purple50_500__purple50_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white__black</item>
         <!-- Secondary brand color. -->
@@ -16,6 +17,7 @@
     
     <style name="Theme.CaseSpace.Emerald">
         <item name="colorPrimary">@color/emerald_200__green_200</item>
+        <item name="colorPrimarySurface">@color/emerald50_200__green50_200</item>
         <item name="colorPrimaryVariant">@color/emerald_700__green_700</item>
         <item name="colorOnPrimary">@color/white__black</item>
         <!-- Secondary brand color. -->
@@ -28,6 +30,7 @@
 
     <style name="MarsTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/red_500__red_dark_500</item>
+        <item name="colorPrimarySurface">@color/red50_500__red_dark50_500</item>
         <item name="colorPrimaryVariant">@color/red_900__red_dark_900</item>
         <item name="colorOnPrimary">@color/white__black</item>
         <!-- Secondary brand color. -->
