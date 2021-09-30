@@ -1,13 +1,15 @@
 package ru.marslab.casespace.data
 
 import android.content.SharedPreferences
+import androidx.room.RoomDatabase
 import ru.marslab.casespace.BuildConfig
 import ru.marslab.casespace.R
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.repository.Storage
 
 class StorageImpl(
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val database: RoomDatabase
 ) : Storage {
     override fun getNasaApikey(): String = BuildConfig.NASA_APIKEY
 

@@ -1,6 +1,7 @@
 package ru.marslab.casespace.di
 
 import android.content.SharedPreferences
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideStorage(sharedPreferences: SharedPreferences): Storage =
-        StorageImpl(sharedPreferences)
+    fun provideStorage(sharedPreferences: SharedPreferences, database: RoomDatabase): Storage =
+        StorageImpl(sharedPreferences, database)
 
 }
