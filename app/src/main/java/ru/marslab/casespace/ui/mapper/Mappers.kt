@@ -4,8 +4,10 @@ import android.os.Build
 import ru.marslab.casespace.domain.model.EarthImage
 import ru.marslab.casespace.domain.model.MarsImage
 import ru.marslab.casespace.domain.model.MarsRover
+import ru.marslab.casespace.domain.model.Note
 import ru.marslab.casespace.ui.model.EarthUi
 import ru.marslab.casespace.ui.model.MarsPhotoUi
+import ru.marslab.casespace.ui.model.NoteUi
 import ru.marslab.casespace.ui.model.RoverUi
 import java.time.LocalDate
 
@@ -27,3 +29,11 @@ fun MarsRover.toUi(): RoverUi {
 
 fun MarsImage.toUi(): MarsPhotoUi =
     MarsPhotoUi(url, camera)
+
+fun Note.toUi(): NoteUi =
+    NoteUi(
+        id = id,
+        title = title,
+        category = categoryName ?: "",
+        description = description
+    )

@@ -1,7 +1,6 @@
 package ru.marslab.casespace.di
 
 import android.content.SharedPreferences
-import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import ru.marslab.casespace.data.NasaRepositoryImpl
 import ru.marslab.casespace.data.StorageImpl
 import ru.marslab.casespace.data.retrofit.NasaApi
+import ru.marslab.casespace.data.room.CaseSpaceDatabase
 import ru.marslab.casespace.domain.repository.NasaRepository
 import ru.marslab.casespace.domain.repository.Storage
 import javax.inject.Singleton
@@ -24,7 +24,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideStorage(sharedPreferences: SharedPreferences, database: RoomDatabase): Storage =
+    fun provideStorage(sharedPreferences: SharedPreferences, database: CaseSpaceDatabase): Storage =
         StorageImpl(sharedPreferences, database)
 
 }
