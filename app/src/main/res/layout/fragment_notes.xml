@@ -19,11 +19,47 @@
         android:id="@+id/fab_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_note_24"
+        android:layout_margin="@dimen/fab_bottom_margin"
+        android:backgroundTint="?colorPrimary"
         android:contentDescription="@string/notes"
+        android:src="@drawable/ic_baseline_note_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:tint="?colorOnPrimary" />
+
+    <ImageButton
+        android:id="@+id/btn_new_note"
+        android:layout_width="@dimen/circle_button_radius"
+        android:layout_height="@dimen/circle_button_radius"
+        android:background="@drawable/shape_circle"
         android:backgroundTint="?colorPrimary"
-        android:layout_margin="@dimen/fab_bottom_margin" />
+        android:contentDescription="@string/add_note"
+        android:src="@drawable/ic_baseline_create_new_note_24"
+        app:layout_constraintCircle="@id/fab_notes"
+        app:layout_constraintCircleAngle="345"
+        app:layout_constraintCircleRadius="@dimen/fab_constraint_button_radius"
+        app:tint="?colorOnPrimary"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_note_categories"
+        android:layout_width="@dimen/circle_button_radius"
+        android:layout_height="@dimen/circle_button_radius"
+        android:background="@drawable/shape_circle"
+        android:backgroundTint="?colorPrimary"
+        android:contentDescription="@string/add_note"
+        android:src="@drawable/ic_baseline_category_24"
+        app:layout_constraintCircle="@id/fab_notes"
+        app:layout_constraintCircleAngle="285"
+        app:layout_constraintCircleRadius="@dimen/fab_constraint_button_radius"
+        app:tint="?colorOnPrimary"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/note_buttons_group"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="btn_new_note, btn_note_categories" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

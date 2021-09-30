@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.transition.TransitionManager
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentNotesBinding
+import ru.marslab.casespace.domain.util.visible
 import ru.marslab.casespace.ui.custom.BaseFragment
 
 class NotesFragment : BaseFragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding: FragmentNotesBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
+
+    private var isExpandFabMenu = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,10 +34,31 @@ class NotesFragment : BaseFragment() {
 
     private fun initListeners() {
         binding.fabNotes.setOnClickListener {
-            it.animate()
-                .rotation(-180f)
-                .start()
+            TransitionManager.beginDelayedTransition(binding.root)
+            binding.noteButtonsGroup.visible(!isExpandFabMenu)
+            if (isExpandFabMenu) {
+                collapseFabMenu()
+            } else {
+                expandFabMenu()
+            }
+            isExpandFabMenu = !isExpandFabMenu
         }
+    }
+
+    private fun collapseFabMenu() {
+        binding.fabNotes.animate()
+            .rotation(180f)
+            .alpha(1f)
+            .start()
+
+    }
+
+    private fun expandFabMenu() {
+        binding.fabNotes.animate()
+            .rotation(-180f)
+            .alpha(0.5f)
+            .start()
+
     }
 
     override fun onDestroyView() {
