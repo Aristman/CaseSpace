@@ -104,6 +104,9 @@ class NotesFragment : BaseFragment() {
             }
             isExpandFabMenu = !isExpandFabMenu
         }
+        binding.btnNewNote.setOnClickListener {
+            NoteDetailsFragment().show(childFragmentManager, NoteDetailsFragment.FRAGMENT_TAG)
+        }
     }
 
     private fun collapseFabMenu() {

@@ -15,10 +15,12 @@ open class BaseFragment : Fragment() {
 
     fun initViewNavigate(
         toolbar: Boolean = true,
+        buttonNav: Boolean = true,
         wikiSearch: Boolean = true
     ) {
         (this.requireActivity() as? ViewElementsVisibility)?.run {
             toolbarVisibility(toolbar)
+            buttonNavVisibility(buttonNav)
             wikiSearchVisibility(wikiSearch)
         }
     }

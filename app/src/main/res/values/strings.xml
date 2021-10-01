@@ -33,4 +33,7 @@
     <string name="mars_rover_photos_title">Снято фото</string>
     <string name="notes">Заметки</string>
     <string name="add_note">Добавить заметку</string>
+    <string name="title">Название</string>
+    <string name="note">Текст заметки</string>
+    <string name="save">Сохранить</string>
 </resources>

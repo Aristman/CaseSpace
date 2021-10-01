@@ -47,4 +47,5 @@
     <color name="purple50_500__purple50_200">#806200EE</color>
     <color name="lightBlue__darkBlue">#A7FFFF</color>
     <color name="loading_shadow">#80FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

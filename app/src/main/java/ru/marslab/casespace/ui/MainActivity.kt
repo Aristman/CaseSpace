@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -85,8 +86,16 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
     }
 
     override fun wikiSearchVisibility(status: Boolean) {
-        binding.activityMainContent.mainToolbar.menu.getItem(1).setVisible(!status)
+        binding.activityMainContent.mainToolbar.menu.getItem(1).isVisible = !status
         binding.activityMainContent.wikiSearchText.visible(status)
+    }
+
+    override fun buttonNavVisibility(status: Boolean) {
+        binding.activityMainContent.mainBottomNavigation.visibility = if (status) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
 }
