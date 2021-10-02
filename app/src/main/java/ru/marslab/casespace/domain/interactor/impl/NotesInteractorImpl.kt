@@ -13,4 +13,8 @@ class NotesInteractorImpl(
 
     override suspend fun getAllNotes(): List<Note> =
         storage.getAllNotes()
+
+    override suspend fun addNewNote(note: Note) {
+        storage.saveNewNote(note)
+    }
 }

@@ -8,4 +8,5 @@ interface Storage {
     fun getTheme(): Int
 
     suspend fun getAllNotes(): List<Note>
+    suspend fun saveNewNote(note: Note)
 }

@@ -37,3 +37,11 @@ fun Note.toUi(): NoteUi =
         category = categoryName ?: "",
         description = description
     )
+
+fun NoteUi.toDomain(): Note =
+    Note(
+        id = id,
+        title = title,
+        categoryName = category,
+        description = description
+    )

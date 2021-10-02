@@ -7,4 +7,5 @@ interface NotesInteractor {
     val dispatchers: AppDispatchers
 
     suspend fun getAllNotes(): List<Note>
+    suspend fun addNewNote(note: Note)
 }

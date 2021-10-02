@@ -24,3 +24,11 @@ fun NoteDetailsDBView.toDomain(): Note =
 
 fun NoteCategoryDB.toDomain(): NoteCategory =
     NoteCategory(id, name)
+
+fun Note.toDB(): NoteDB =
+    NoteDB(
+        id = id,
+        title = title,
+        categoryId = categoryId ?: "",
+        description = description
+    )
