@@ -2,6 +2,7 @@ package ru.marslab.casespace.ui.notes.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.ItemCollapseNoteBinding
 import ru.marslab.casespace.databinding.ItemExpandNoteBinding
 import ru.marslab.casespace.databinding.ItemFooterNoteListBinding
@@ -34,6 +35,9 @@ class CollapseNoteItemViewHolder(
     override fun bind(item: NoteListItem) {
         (item as? NoteListItem.Note)?.data?.let {
             binding.run {
+                if (item.isSelected) {
+                    root.setBackgroundColor(this.root.context.getColor(R.color.loading_shadow))
+                }
                 noteTitle.text = it.title
                 noteDescription.text = it.description
                 root.setOnClickListener {
@@ -53,6 +57,9 @@ class ExpandNoteItemViewHolder(
     override fun bind(item: NoteListItem) {
         (item as? NoteListItem.Note)?.data?.let {
             binding.run {
+                if (item.isSelected) {
+                    root.setBackgroundColor(root.context.getColor(R.color.loading_shadow))
+                }
                 noteTitle.text = it.title
                 noteDescription.text = it.description
                 root.setOnClickListener {

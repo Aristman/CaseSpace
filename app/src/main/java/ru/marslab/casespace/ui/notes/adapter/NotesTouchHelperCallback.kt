@@ -1,9 +1,15 @@
-package ru.marslab.casespace.ui.notes
+package ru.marslab.casespace.ui.notes.adapter
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class NotesTouchHelperCallback(private val viewModel: NotesViewModel) : ItemTouchHelper.Callback() {
+class NotesTouchHelperCallback(private val touchHandler: NoteTouchHelperHandler) :
+    ItemTouchHelper.Callback() {
+
+    override fun isLongPressDragEnabled(): Boolean {
+        return true
+    }
+
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
@@ -18,10 +24,11 @@ class NotesTouchHelperCallback(private val viewModel: NotesViewModel) : ItemTouc
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        return false
+        touchHandler.moveNote(viewHolder.adapterPosition - 1, target.adapterPosition - 1)
+        return true
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        TODO("Not yet implemented")
+        touchHandler.deleteNote(viewHolder.adapterPosition - 1)
     }
 }

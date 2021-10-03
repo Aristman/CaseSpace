@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.transition.TransitionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -16,6 +17,7 @@ import ru.marslab.casespace.domain.util.visible
 import ru.marslab.casespace.ui.custom.BaseFragment
 import ru.marslab.casespace.ui.notes.adapter.NoteListItem
 import ru.marslab.casespace.ui.notes.adapter.NotesAdapter
+import ru.marslab.casespace.ui.notes.adapter.NotesTouchHelperCallback
 import ru.marslab.casespace.ui.util.ViewState
 
 @AndroidEntryPoint
@@ -52,7 +54,10 @@ class NotesFragment : BaseFragment() {
     }
 
     private fun initRV() {
-        binding.rvNotes.adapter = notesAdapter
+        binding.rvNotes.run {
+            adapter = notesAdapter
+            ItemTouchHelper(NotesTouchHelperCallback(notesViewModel)).attachToRecyclerView(this)
+        }
     }
 
     private fun initObservers() {
