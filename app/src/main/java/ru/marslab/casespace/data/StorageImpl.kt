@@ -25,8 +25,7 @@ class StorageImpl(
         sharedPreferences.getInt(Constant.SETTING_THEME, R.style.Theme_CaseSpace)
 
     override suspend fun getAllNotes(): List<Note> {
-        val www = database.noteDao().getAllNotes().map { it.toDomain() }
-        return www
+        return database.noteDao().getAllNotes().map { it.toDomain() }
     }
 
     override suspend fun saveNewNote(note: Note) {

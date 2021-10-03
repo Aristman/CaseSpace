@@ -14,7 +14,7 @@ import ru.marslab.casespace.databinding.FragmentNotesBinding
 import ru.marslab.casespace.domain.util.handleError
 import ru.marslab.casespace.domain.util.visible
 import ru.marslab.casespace.ui.custom.BaseFragment
-import ru.marslab.casespace.ui.notes.adapter.NoteItem
+import ru.marslab.casespace.ui.notes.adapter.NoteListItem
 import ru.marslab.casespace.ui.notes.adapter.NotesAdapter
 import ru.marslab.casespace.ui.util.ViewState
 
@@ -27,8 +27,8 @@ class NotesFragment : BaseFragment() {
     private val notesViewModel by viewModels<NotesViewModel>()
 
     private val notesAdapter: NotesAdapter by lazy {
-        NotesAdapter() { item, position ->
-            notesViewModel.clickOnItem(position)
+        NotesAdapter() { item ->
+            notesViewModel.clickOnItem(item)
         }
     }
 
@@ -70,7 +70,7 @@ class NotesFragment : BaseFragment() {
                         setViewWorkState()
                     }
                     is ViewState.Successful<*> -> {
-                        val notesList = (result.data as List<*>).map { it as NoteItem }
+                        val notesList = (result.data as List<*>).map { it as NoteListItem }
                         notesAdapter.submitList(notesList)
                     }
                 }

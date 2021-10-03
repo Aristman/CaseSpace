@@ -9,23 +9,20 @@ import ru.marslab.casespace.databinding.ItemCollapseNoteBinding
 import ru.marslab.casespace.databinding.ItemExpandNoteBinding
 import ru.marslab.casespace.databinding.ItemFooterNoteListBinding
 import ru.marslab.casespace.databinding.ItemHeaderNoteListBinding
-import ru.marslab.casespace.ui.model.NoteUi
 
-val diffCallback = object : DiffUtil.ItemCallback<NoteItem>() {
-    override fun areItemsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean =
-        if (newItem is NoteItem.CollapseNote && oldItem is NoteItem.CollapseNote) {
-            newItem.data.id == oldItem.data.id
-        } else if (newItem is NoteItem.ExpandNote && oldItem is NoteItem.ExpandNote) {
+val diffCallback = object : DiffUtil.ItemCallback<NoteListItem>() {
+    override fun areItemsTheSame(oldItem: NoteListItem, newItem: NoteListItem): Boolean =
+        if (newItem is NoteListItem.Note && oldItem is NoteListItem.Note) {
             newItem.data.id == oldItem.data.id
         } else true
 
 
-    override fun areContentsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean =
+    override fun areContentsTheSame(oldItem: NoteListItem, newItem: NoteListItem): Boolean =
         oldItem == newItem
 }
 
-class NotesAdapter(private val itemClickCallback: (item: NoteUi, position: Int) -> Unit) :
-    ListAdapter<NoteItem, BaseNoteViewHolder>(diffCallback) {
+class NotesAdapter(private val itemClickCallback: (item: NoteListItem) -> Unit) :
+    ListAdapter<NoteListItem, BaseNoteViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseNoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
@@ -42,14 +39,19 @@ class NotesAdapter(private val itemClickCallback: (item: NoteUi, position: Int) 
     }
 
     override fun onBindViewHolder(holder: BaseNoteViewHolder, position: Int) {
-        getItem(position).data?.let { holder.bind(it) }
+        holder.bind(getItem(position))
     }
 
     override fun getItemViewType(position: Int): Int =
-        when (getItem(position)) {
-            is NoteItem.CollapseNote -> R.layout.item_collapse_note
-            is NoteItem.ExpandNote -> R.layout.item_expand_note
-            NoteItem.Footer -> R.layout.item_footer_note_list
-            NoteItem.Header -> R.layout.item_header_note_list
+        when (val item = getItem(position)) {
+            is NoteListItem.Note -> {
+                if (item.isExpand) {
+                    R.layout.item_expand_note
+                } else {
+                    R.layout.item_collapse_note
+                }
+            }
+            NoteListItem.Footer -> R.layout.item_footer_note_list
+            NoteListItem.Header -> R.layout.item_header_note_list
         }
 }

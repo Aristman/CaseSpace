@@ -10,7 +10,7 @@ import ru.marslab.casespace.domain.interactor.NotesInteractor
 import ru.marslab.casespace.ui.mapper.toDomain
 import ru.marslab.casespace.ui.mapper.toUi
 import ru.marslab.casespace.ui.model.NoteUi
-import ru.marslab.casespace.ui.notes.adapter.NoteItem
+import ru.marslab.casespace.ui.notes.adapter.NoteListItem
 import ru.marslab.casespace.ui.util.ViewState
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class NotesViewModel @Inject constructor(
     private var _notes: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Init)
     val notes: StateFlow<ViewState>
         get() = _notes
-    private val notesList: MutableList<NoteItem> = mutableListOf()
+    private val notesList: MutableList<NoteListItem> = mutableListOf()
 
     fun getAllNotes() {
         _notes.value = ViewState.Loading
@@ -29,7 +29,8 @@ class NotesViewModel @Inject constructor(
             try {
                 if (notesList.isNullOrEmpty()) {
                     notesList.addAll(
-                        notesInteractor.getAllNotes().map { NoteItem.CollapseNote(it.toUi()) }
+                        notesInteractor.getAllNotes()
+                            .map { NoteListItem.Note(it.toUi(), isExpand = false) }
                     )
                 }
                 _notes.emit(ViewState.Successful(getFullNoteList()))
@@ -40,7 +41,7 @@ class NotesViewModel @Inject constructor(
     }
 
     fun addNewNote(note: NoteUi): Int {
-        notesList.add(NoteItem.CollapseNote(note))
+        notesList.add(NoteListItem.Note(note, isExpand = false))
         _notes.value = ViewState.Successful(getFullNoteList())
         viewModelScope.launch(notesInteractor.dispatchers.io)
         {
@@ -50,27 +51,22 @@ class NotesViewModel @Inject constructor(
     }
 
 
-    private fun getFullNoteList(): List<NoteItem> {
-        val allNotes = mutableListOf<NoteItem>()
+    private fun getFullNoteList(): List<NoteListItem> {
+        val allNotes = mutableListOf<NoteListItem>()
         return allNotes.apply {
-            add(NoteItem.Header)
+            add(NoteListItem.Header)
             addAll(notesList)
-            add(NoteItem.Footer)
+            add(NoteListItem.Footer)
         }
     }
 
-    fun clickOnItem(position: Int) {
-        when (val clickedItem = notesList[position - 1]) {
-            is NoteItem.CollapseNote -> {
-                notesList.remove(clickedItem)
-                notesList.add(position - 1, NoteItem.ExpandNote(clickedItem.data))
-            }
-            is NoteItem.ExpandNote -> {
-                notesList.remove(clickedItem)
-                notesList.add(position - 1, NoteItem.CollapseNote(clickedItem.data))
-            }
-            else -> {
-            }
+    fun clickOnItem(clickedItem: NoteListItem) {
+        val clickedIndex = notesList.indexOf(clickedItem)
+        notesList.removeAt(clickedIndex).apply {
+            notesList.add(
+                clickedIndex,
+                (this as NoteListItem.Note).copy(isExpand = !isExpand)
+            )
         }
         _notes.value = ViewState.Successful(getFullNoteList())
     }
