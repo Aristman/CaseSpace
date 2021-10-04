@@ -4,4 +4,5 @@ interface ViewElementsVisibility {
     fun toolbarVisibility(status: Boolean)
     fun wikiSearchVisibility(status: Boolean)
     fun buttonNavVisibility(status: Boolean)
+    fun wikiMenuItemVisibility(status: Boolean)
 }

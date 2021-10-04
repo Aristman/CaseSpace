@@ -6,9 +6,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         android:background="?colorPrimarySurface"
+        android:fontFamily="@font/akronim"
+        android:text="@string/end_list"
         android:textAlignment="center"
-        android:text="@string/end_list" />
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
 
 </FrameLayout>

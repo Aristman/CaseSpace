@@ -3,6 +3,7 @@ package ru.marslab.casespace.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,10 +13,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.ActivityMainBinding
-import ru.marslab.casespace.domain.util.visible
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ViewElementsVisibility {
@@ -56,11 +59,21 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
     }
 
     private fun initListeners() {
-        binding.activityMainContent.wikiSearch.setEndIconOnClickListener {
-            val searchText = binding.activityMainContent.wikiSearchText.text.toString()
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/$searchText")
-            })
+        binding.activityMainContent.wikiSearch.also {
+            it.setEndIconOnClickListener {
+                val searchText = binding.activityMainContent.wikiSearchText.text.toString()
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("https://en.wikipedia.org/wiki/$searchText")
+                })
+            }
+            it.setStartIconOnClickListener {
+                val transitionSet = TransitionSet()
+                    .addTransition(Slide(Gravity.START).addTarget(binding.activityMainContent.mainToolbar))
+                    .setDuration(1000L)
+                TransitionManager.beginDelayedTransition(binding.root, transitionSet)
+                wikiSearchVisibility(false)
+                toolbarVisibility(true)
+            }
         }
     }
 
@@ -69,6 +82,12 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
         return when (item.itemId) {
             R.id.item_menu_settings -> {
                 navController.navigate(R.id.show_settingsFragment)
+                true
+            }
+            R.id.item_menu_wiki -> {
+                TransitionManager.beginDelayedTransition(binding.root)
+                wikiSearchVisibility(true)
+                toolbarVisibility(false)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -86,8 +105,11 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
     }
 
     override fun wikiSearchVisibility(status: Boolean) {
-        binding.activityMainContent.mainToolbar.menu.getItem(1).isVisible = !status
-        binding.activityMainContent.wikiSearchText.visible(status)
+        binding.activityMainContent.wikiSearch.visibility = if (status) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     override fun buttonNavVisibility(status: Boolean) {
@@ -96,6 +118,11 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
         } else {
             View.GONE
         }
+    }
+
+    override fun wikiMenuItemVisibility(status: Boolean) {
+        binding.activityMainContent.mainToolbar.menu.getItem(1).isEnabled = status
+        invalidateOptionsMenu()
     }
 
 }
