@@ -4,29 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentMarsBinding
 import ru.marslab.casespace.domain.util.handleError
+import ru.marslab.casespace.ui.custom.BaseFragment
 import ru.marslab.casespace.ui.mars.adapter.MarsPhotoAdapter
 import ru.marslab.casespace.ui.model.MarsPhotoUi
 import ru.marslab.casespace.ui.model.RoverUi
 import ru.marslab.casespace.ui.util.ViewState
 
 @AndroidEntryPoint
-class MarsFragment : Fragment() {
-    private lateinit var marsPhotoAdapter: MarsPhotoAdapter
+class MarsFragment : BaseFragment() {
+    private var marsPhotoAdapter: MarsPhotoAdapter? = null
     private var _binding: FragmentMarsBinding? = null
     private val binding: FragmentMarsBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }
 
     private val marsViewModel by viewModels<MarsViewModel>()
+    private var isExpandAppbar = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +41,10 @@ class MarsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
+        marsPhotoAdapter?.let {
+            binding.rvMarsPhotos.adapter = it
+            binding.marsAppbar.setExpanded(isExpandAppbar)
+        }
     }
 
     private fun initObservers() {
@@ -85,7 +90,7 @@ class MarsFragment : Fragment() {
                     }
                     is ViewState.Successful<*> -> {
                         val marsPhotoList = (result.data as List<*>).map { it as MarsPhotoUi }
-                        marsPhotoAdapter.submitList(marsPhotoList)
+                        marsPhotoAdapter?.submitList(marsPhotoList)
                         showImagesList()
                     }
                 }
@@ -109,16 +114,23 @@ class MarsFragment : Fragment() {
 
     private fun initRV() {
         marsPhotoAdapter = MarsPhotoAdapter {
-            Toast.makeText(requireContext(), it.url, Toast.LENGTH_SHORT).show()
+            isExpandAppbar = !binding.marsAppbar.isLifted
+            showMarsBigImage(it)
         }
         binding.rvMarsPhotos.adapter = marsPhotoAdapter
     }
 
+    private fun showMarsBigImage(item: MarsPhotoUi) {
+        val action =
+            MarsFragmentDirections.actionMarsFragmentToMarsImageFragment(item.url, item.camera)
+        findNavController().navigate(action)
+    }
+
     private fun updateAppbarInfo(roverInfo: RoverUi) {
         binding.run {
-            roverNameText.text = roverInfo.name
             landingText.text = roverInfo.landing
             photosCountText.text = roverInfo.photosCount.toString()
+            marsCollapsing.title = roverInfo.name
         }
     }
 

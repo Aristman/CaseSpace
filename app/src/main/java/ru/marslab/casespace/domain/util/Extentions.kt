@@ -58,3 +58,7 @@ fun Fragment.handleError(error: Throwable, repeatAction: () -> Unit) {
         }
     }
 }
+
+fun View.visible(status: Boolean) {
+    visibility = if (status) View.VISIBLE else View.GONE
+}

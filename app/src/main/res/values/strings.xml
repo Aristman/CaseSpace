@@ -11,9 +11,6 @@
     <string name="repeat">Повторить</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
-    <string name="fragment_one">Первый фрагмент</string>
-    <string name="fragment_two">Второй фрагмент</string>
-    <string name="fragment_three">Третий фрагмент</string>
     <string name="ok">OK</string>
     <string name="themes_choice_title">Выбор темы приложения</string>
     <string name="mars_theme">Тема \"Марс\"</string>
@@ -34,4 +31,11 @@
     <string name="mars_rover_name_title">Название марсохода</string>
     <string name="mars_rover_landing_title">Дата посадки</string>
     <string name="mars_rover_photos_title">Снято фото</string>
+    <string name="notes">Заметки</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="title">Название</string>
+    <string name="note">Текст заметки</string>
+    <string name="save">Сохранить</string>
+    <string name="list_begin">Начало списка</string>
+    <string name="end_list">Конец списка</string>
 </resources>
