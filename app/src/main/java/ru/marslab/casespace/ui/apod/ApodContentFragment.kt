@@ -115,7 +115,9 @@ class ApodContentFragment : Fragment() {
     }
 
     private fun loadImage(imageUrl: String) {
-        binding.imageOfDay.load(imageUrl)
+        binding.imageOfDay.load(imageUrl) {
+            crossfade(true)
+        }
     }
 
     private fun showLoading() {
