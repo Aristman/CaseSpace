@@ -31,4 +31,8 @@
     <style name="MarRoverText" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">?colorOnSecondary</item>
     </style>
+
+    <style name="NoteTitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textAlignment">center</item>
+    </style>
 </resources>

@@ -15,9 +15,10 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.ActivityMainBinding
+import ru.marslab.casespace.domain.util.visible
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ViewElementsVisibility {
 
     private val navController: NavController by lazy {
         (supportFragmentManager
@@ -43,23 +44,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mainToolbar)
         mainToolbar.setupWithNavController(
             navController,
-            AppBarConfiguration(navController.graph)
+            AppBarConfiguration(navController.graph, binding.root)
         )
+        binding.mainNavView.setupWithNavController(navController)
         binding.activityMainContent.mainBottomNavigation.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when (destination.id) {
-                R.id.settingsFragment -> {
-                    setNavVisibility(View.GONE)
-                }
-                else -> {
-                    setNavVisibility(View.VISIBLE)
-                }
-            }
-        }
-    }
-
-    private fun setNavVisibility(visibility: Int) {
-        binding.activityMainContent.wikiSearch.visibility = visibility
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -84,6 +72,29 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun toolbarVisibility(status: Boolean) {
+        supportActionBar?.run {
+            if (status) {
+                show()
+            } else {
+                hide()
+            }
+        }
+    }
+
+    override fun wikiSearchVisibility(status: Boolean) {
+        binding.activityMainContent.mainToolbar.menu.getItem(1).isVisible = !status
+        binding.activityMainContent.wikiSearchText.visible(status)
+    }
+
+    override fun buttonNavVisibility(status: Boolean) {
+        binding.activityMainContent.mainBottomNavigation.visibility = if (status) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
     }
 

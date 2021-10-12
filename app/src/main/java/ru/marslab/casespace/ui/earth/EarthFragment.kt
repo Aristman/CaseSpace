@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -23,6 +22,7 @@ import ru.marslab.casespace.databinding.FragmentEarthBinding
 import ru.marslab.casespace.domain.repository.Constant
 import ru.marslab.casespace.domain.util.handleError
 import ru.marslab.casespace.domain.util.showMessage
+import ru.marslab.casespace.ui.custom.BaseFragment
 import ru.marslab.casespace.ui.earth.adapter.EarthImageAdapter
 import ru.marslab.casespace.ui.model.EarthUi
 import ru.marslab.casespace.ui.util.PermissionStatus
@@ -31,7 +31,7 @@ import ru.marslab.casespace.ui.util.ViewState
 import java.util.*
 
 @AndroidEntryPoint
-class EarthFragment : Fragment() {
+class EarthFragment : BaseFragment() {
     private var _binding: FragmentEarthBinding? = null
     private val binding: FragmentEarthBinding
         get() = checkNotNull(_binding) { getString(R.string.error_init_binding, this::class) }

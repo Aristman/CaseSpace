@@ -36,7 +36,7 @@
     <Transition
         app:constraintSetEnd="@id/main_anim_end"
         app:constraintSetStart="@+id/main_anim_start">
-        <OnClick app:targetId="@id/item_wiki" />
+        <OnClick app:targetId="@id/item_menu_wiki" />
     </Transition>
     <Transition
         app:constraintSetEnd="@+id/main_anim_start"

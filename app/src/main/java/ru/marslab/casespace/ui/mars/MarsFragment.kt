@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,13 +13,14 @@ import kotlinx.coroutines.flow.collect
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.FragmentMarsBinding
 import ru.marslab.casespace.domain.util.handleError
+import ru.marslab.casespace.ui.custom.BaseFragment
 import ru.marslab.casespace.ui.mars.adapter.MarsPhotoAdapter
 import ru.marslab.casespace.ui.model.MarsPhotoUi
 import ru.marslab.casespace.ui.model.RoverUi
 import ru.marslab.casespace.ui.util.ViewState
 
 @AndroidEntryPoint
-class MarsFragment : Fragment() {
+class MarsFragment : BaseFragment() {
     private var marsPhotoAdapter: MarsPhotoAdapter? = null
     private var _binding: FragmentMarsBinding? = null
     private val binding: FragmentMarsBinding
@@ -115,13 +115,14 @@ class MarsFragment : Fragment() {
     private fun initRV() {
         marsPhotoAdapter = MarsPhotoAdapter {
             isExpandAppbar = !binding.marsAppbar.isLifted
-            showMarsBigImage(it.url)
+            showMarsBigImage(it)
         }
         binding.rvMarsPhotos.adapter = marsPhotoAdapter
     }
 
-    private fun showMarsBigImage(url: String) {
-        val action = MarsFragmentDirections.actionMarsFragmentToMarsImageFragment(url)
+    private fun showMarsBigImage(item: MarsPhotoUi) {
+        val action =
+            MarsFragmentDirections.actionMarsFragmentToMarsImageFragment(item.url, item.camera)
         findNavController().navigate(action)
     }
 
