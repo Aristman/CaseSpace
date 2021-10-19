@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import ru.marslab.casespace.AppDispatchers
 import ru.marslab.casespace.domain.interactor.NotesInteractor
 import ru.marslab.casespace.ui.mapper.toDomain
 import ru.marslab.casespace.ui.mapper.toUi
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
-    private val notesInteractor: NotesInteractor
+    private val notesInteractor: NotesInteractor,
+    private val dispatchers: AppDispatchers
 ) : ViewModel(), NoteTouchHelperHandler {
     private var _notes: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Init)
     val notes: StateFlow<ViewState>
@@ -28,7 +30,7 @@ class NotesViewModel @Inject constructor(
 
     fun getAllNotes() {
         _notes.value = ViewState.Loading
-        viewModelScope.launch(notesInteractor.dispatchers.io) {
+        viewModelScope.launch(dispatchers.io) {
             try {
                 if (notesList.isNullOrEmpty()) {
                     notesList.addAll(
@@ -46,7 +48,7 @@ class NotesViewModel @Inject constructor(
     fun addNewNote(note: NoteUi): Int {
         notesList.add(NoteListItem.Note(note))
         refreshNotesList()
-        viewModelScope.launch(notesInteractor.dispatchers.io)
+        viewModelScope.launch(dispatchers.io)
         {
             notesInteractor.addNewNote(note.toDomain())
         }

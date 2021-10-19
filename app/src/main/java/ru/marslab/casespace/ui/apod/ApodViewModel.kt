@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.marslab.casespace.AppDispatchers
+import ru.marslab.casespace.domain.interactor.ApodInteractor
 import ru.marslab.casespace.domain.model.PostDay
 import ru.marslab.casespace.domain.repository.Constant
-import ru.marslab.casespace.domain.repository.NasaRepository
 import ru.marslab.casespace.domain.util.getNasaFormatDate
 import ru.marslab.casespace.ui.util.ViewState
 import java.time.LocalDate
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ApodViewModel @Inject constructor(
-    private val nasaRepository: NasaRepository,
+    private val apodInteractor: ApodInteractor,
     private val dispatchers: AppDispatchers
 ) : ViewModel() {
     private var _imageOfDayPath = MutableStateFlow<ViewState>(ViewState.Loading)
@@ -33,10 +33,10 @@ class ApodViewModel @Inject constructor(
             _imageOfDayPath.emit(ViewState.Loading)
             try {
                 val picture =
-                    nasaRepository.getPictureOfDay(date = day?.let { getPostDay(it.minusDay) })
+                    apodInteractor.getPictureOfDay(date = day?.let { getPostDay(it.minusDay) })
                 _imageOfDayPath.emit(
                     picture?.let { ViewState.Successful(it) } ?: ViewState.LoadError(
-                        NetworkErrorException(Constant.getLoadErrorString(nasaRepository.getRepoName()))
+                        NetworkErrorException(Constant.getLoadErrorString(apodInteractor.getRepoName()))
                     )
                 )
             } catch (e: Exception) {
