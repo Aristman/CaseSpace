@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
         binding.activityMainContent.mainBottomNavigation.setupWithNavController(navController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar_main, menu)
         return super.onCreateOptionsMenu(menu)
     }

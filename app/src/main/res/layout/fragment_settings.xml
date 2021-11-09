@@ -7,6 +7,11 @@
     android:padding="@dimen/default_view_padding"
     tools:context=".ui.settings.SettingsFragment">
 
+    <androidx.compose.ui.tooling.ComposeViewAdapter
+        android:id="@+id/compose_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_choice_themes"
         style="@style/SettingCard"
