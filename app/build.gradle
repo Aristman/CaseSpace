@@ -7,7 +7,9 @@ plugins {
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
 }
-
+ext {
+    compose_version = "1.0.5"
+}
 android {
     compileSdk 31
 
@@ -38,6 +40,14 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.1'
+    }
+
 }
 
 kapt {
@@ -64,10 +74,10 @@ dependencies {
 
 
     //Android KTX
-    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
     implementation "androidx.fragment:fragment-ktx:1.3.6"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-rc01"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
 
     //Navigation KTX
     implementation "androidx.navigation:navigation-runtime-ktx:2.3.5"
@@ -85,6 +95,20 @@ dependencies {
     //Hilt Dagger
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
+
+    // Jetpack Compose
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.4.0'
+    // Compose Material Design
+    implementation "androidx.compose.material:material:$compose_version"
+    // Animations
+    implementation "androidx.compose.animation:animation:$compose_version"
+    // Tooling support (Previews, etc.)
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    // Integration with ViewModels
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
+    // When using a MDC theme
+    implementation "com.google.android.material:compose-theme-adapter:1.1.0"
 
     //Firebase
     //Google Map
