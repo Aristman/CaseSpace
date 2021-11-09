@@ -1,4 +1,4 @@
-package ru.marslab.micropythondocs.ui.theme
+package ru.marslab.casespace.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package ru.marslab.micropythondocs.ui.theme
+package ru.marslab.casespace.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -41,7 +41,7 @@ fun MicroPythonDocsTheme(
     MaterialTheme(
         colors = colors,
         typography = Typography,
-        shapes = Shapes,
+        shapes = RoundedShapes,
         content = content
     )
 }
