@@ -66,7 +66,7 @@ fun ScreenSettings(
                 onClick = {
                     settingsViewModel.saveCurrentTheme(selectedTheme)
                     activity.setTheme(selectedTheme)
-//                    activity.recreate()
+                    activity.recreate()
                 },
                 modifier = Modifier.align(CenterHorizontally)
             ) {
