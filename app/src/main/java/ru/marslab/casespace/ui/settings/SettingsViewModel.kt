@@ -1,5 +1,6 @@
 package ru.marslab.casespace.ui.settings
 
+import androidx.annotation.StyleRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,10 +8,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marslab.casespace.domain.repository.Storage
-import ru.marslab.casespace.ui.settings.view.AppTheme
 import javax.inject.Inject
 
-data class SettingsState(val theme: Int)
+data class SettingsState(@StyleRes val themeId: Int)
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -19,7 +19,7 @@ class SettingsViewModel @Inject constructor(
     private var _settingsState = MutableStateFlow(SettingsState(AppTheme.DEFAULT_THEME.themeId))
     val settingsState = _settingsState.asStateFlow()
 
-    fun getCurrentTheme() {
+    fun loadCurrentTheme() {
         viewModelScope.launch {
             _settingsState.emit(SettingsState(storage.getTheme()))
         }
