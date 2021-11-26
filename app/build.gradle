@@ -109,6 +109,12 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
     // When using a MDC theme
     implementation "com.google.android.material:compose-theme-adapter:1.1.0"
+    //Kodein DI
+    implementation 'org.kodein.di:kodein-di-framework-android-core:7.9.0'
+    implementation 'org.kodein.di:kodein-di-framework-android-support:7.9.0'
+    implementation 'org.kodein.di:kodein-di-framework-android-x-viewmodel:7.9.0'
+    implementation 'org.kodein.di:kodein-di-framework-compose:7.9.0'
+
 
     //Firebase
     //Google Map

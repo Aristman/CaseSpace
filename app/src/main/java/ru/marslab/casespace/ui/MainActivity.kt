@@ -17,21 +17,24 @@ import androidx.transition.Slide
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import dagger.hilt.android.AndroidEntryPoint
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
 import ru.marslab.casespace.R
 import ru.marslab.casespace.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), ViewElementsVisibility {
+class MainActivity : AppCompatActivity(), ViewElementsVisibility, DIAware {
+    override val di by closestDI()
 
     private val navController: NavController by lazy {
         (supportFragmentManager
             .findFragmentById(binding.activityMainContent.mainFragmentContainer.id) as NavHostFragment)
             .navController
     }
-
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
     private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +61,7 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
         return super.onCreateOptionsMenu(menu)
     }
 
+
     private fun initListeners() {
         binding.activityMainContent.wikiSearch.also {
             it.setEndIconOnClickListener {
@@ -76,7 +80,6 @@ class MainActivity : AppCompatActivity(), ViewElementsVisibility {
             }
         }
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

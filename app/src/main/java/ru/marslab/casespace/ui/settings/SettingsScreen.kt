@@ -6,17 +6,17 @@ import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import org.kodein.di.compose.rememberInstance
 import ru.marslab.casespace.R
+import ru.marslab.casespace.domain.repository.Storage
 import ru.marslab.casespace.ui.theme.RoundedShapes
 import ru.marslab.casespace.ui.theme.Typography
 import ru.marslab.casespace.ui.views.RadioGroup
@@ -24,11 +24,12 @@ import ru.marslab.casespace.ui.views.RadioGroup
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    settingsViewModel: SettingsViewModel = viewModel(),
     onThemeSelect: (themeId: Int) -> Unit
 ) {
-    settingsViewModel.loadCurrentTheme()
-    val currentTheme by settingsViewModel.settingsState.collectAsState()
+    val storage by rememberInstance<Storage>()
+    val currentTheme = remember {
+        storage.getTheme()
+    }
     Card(
         elevation = 4.dp,
         shape = RoundedShapes.medium,
@@ -50,11 +51,11 @@ fun SettingsScreen(
             )
             RadioGroup(
                 items = AppTheme.values().map { stringResource(id = it.themeName) },
-                selectItem = AppTheme.values().find { it.themeId == currentTheme.themeId }?.ordinal
+                selectItem = AppTheme.values().find { it.themeId == currentTheme }?.ordinal
                     ?: 0
             ) {
                 val themeId = AppTheme.values()[it.first].themeId
-                settingsViewModel.saveCurrentTheme(theme = themeId)
+                storage.saveTheme(themeId)
                 onThemeSelect(themeId)
             }
         }
